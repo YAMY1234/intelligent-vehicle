@@ -1,0 +1,457 @@
+[{
+	"cityCod": "1001",
+	"nextStaDistances": "392,3050,3060,2128,4744,2120,916",
+	"nextStaIds": "226,107,222,206,219,227,228",
+	"rangeRadius": 5.0,
+	"staGps": "114.369548,22.704102",
+	"stationId": "101",
+	"stationName": "龙田派出所",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "612",
+	"nextStaIds": "103",
+	"rangeRadius": 5.0,
+	"staGps": "114.396866,22.709232",
+	"stationId": "102",
+	"stationName": "金牛创景路口B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "230",
+	"nextStaIds": "104",
+	"rangeRadius": 5.0,
+	"staGps": "114.401667,22.71126",
+	"stationId": "103",
+	"stationName": "德菲厂B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "380",
+	"nextStaIds": "236",
+	"rangeRadius": 5.0,
+	"staGps": "114.402373,22.710889",
+	"stationId": "104",
+	"stationName": "德菲厂A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1820,1410,1630,990,1768",
+	"nextStaIds": "106,229,232,102,234",
+	"rangeRadius": 5.0,
+	"staGps": "114.395127,22.709162",
+	"stationId": "105",
+	"stationName": "金牛创景路口A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1068,2804,3747,3788,2819,5923,450",
+	"nextStaIds": "226,222,107,206,227,219,228",
+	"rangeRadius": 5.0,
+	"staGps": "114.377713,22.706013",
+	"stationId": "106",
+	"stationName": "萨米医疗中心B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1236,1393,1132,2504,2098,2364,4422",
+	"nextStaIds": "108,205,206,221,222,223,219",
+	"rangeRadius": 5.0,
+	"staGps": "114.345382,22.697453",
+	"stationId": "107",
+	"stationName": "甲片村",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1007,1993,1820,2082,3300,3106,2900,5142",
+	"nextStaIds": "203,107,206,220,221,223,222,219",
+	"rangeRadius": 5.0,
+	"staGps": "114.337156,22.704731",
+	"stationId": "108",
+	"stationName": "大东城",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "2102,2314,3217,3428,4600,6506,4100,4466,3258",
+	"nextStaIds": "108,203,206,220,221,219,222,223,107",
+	"rangeRadius": 5.0,
+	"staGps": "114.325737,22.707715",
+	"stationId": "201",
+	"stationName": "高铁站",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "570,2472,1761,1404,2114,1840,5060,2700,3000,237",
+	"nextStaIds": "108,201,206,220,221,107,219,222,223,203",
+	"rangeRadius": 5.0,
+	"staGps": "114.341853,22.704639",
+	"stationId": "202",
+	"stationName": "坪山实验学校A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "537,497",
+	"nextStaIds": "202,205",
+	"rangeRadius": 5.0,
+	"staGps": "114.341401,22.704241",
+	"stationId": "203",
+	"stationName": "坪山实验学校B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "390,1753,1444,374",
+	"nextStaIds": "202,221,222,204",
+	"rangeRadius": 5.0,
+	"staGps": "114.345757,22.705686",
+	"stationId": "204",
+	"stationName": "坪山大剧院A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "283,665",
+	"nextStaIds": "204,220",
+	"rangeRadius": 5.0,
+	"staGps": "114.345869,22.705389",
+	"stationId": "205",
+	"stationName": "坪山大剧院B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1168,1306,892,1159,1468",
+	"nextStaIds": "207,208,209,210,212",
+	"rangeRadius": 5.0,
+	"staGps": "114.345872,22.69564",
+	"stationId": "206",
+	"stationName": "飞东村",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "3437,1112,247,1391,1199,1604",
+	"nextStaIds": "219,222,107,223,220,221",
+	"rangeRadius": 5.0,
+	"staGps": "114.346423,22.695843",
+	"stationId": "207",
+	"stationName": "投资大厦",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1184,896,1181,1493",
+	"nextStaIds": "207,209,210,212",
+	"rangeRadius": 5.0,
+	"staGps": "114.339164,22.693819",
+	"stationId": "208",
+	"stationName": "六合城",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1376,1122,1480,989,1176",
+	"nextStaIds": "208,207,212,210,211",
+	"rangeRadius": 5.0,
+	"staGps": "114.346943,22.690265",
+	"stationId": "209",
+	"stationName": "坪山街道办",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "995,400,786,1504,1303",
+	"nextStaIds": "209,211,212,208,207",
+	"rangeRadius": 5.0,
+	"staGps": "114.343128,22.686806",
+	"stationId": "210",
+	"stationName": "坪山汽车总站",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1356,1050,1536,866,327",
+	"nextStaIds": "207,209,208,212,210",
+	"rangeRadius": 5.0,
+	"staGps": "114.345011,22.686236",
+	"stationId": "211",
+	"stationName": "坪山中心学校",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "220,348,1273,2697",
+	"nextStaIds": "213,214,218,219",
+	"rangeRadius": 5.0,
+	"staGps": "114.338724,22.684361",
+	"stationId": "212",
+	"stationName": "东方威尼斯",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "724,1317,1789,1636",
+	"nextStaIds": "210,209,208,207",
+	"rangeRadius": 5.0,
+	"staGps": "114.338198,22.683148",
+	"stationId": "213",
+	"stationName": "深业东城上邸B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "582",
+	"nextStaIds": "215",
+	"rangeRadius": 5.0,
+	"staGps": "114.336294,22.682",
+	"stationId": "214",
+	"stationName": "深业东城上邸A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "227,1882,1040,3282",
+	"nextStaIds": "216,218,213,219",
+	"rangeRadius": 5.0,
+	"staGps": "114.331541,22.679505",
+	"stationId": "215",
+	"stationName": "龙光久云著",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "203",
+	"nextStaIds": "217",
+	"rangeRadius": 5.0,
+	"staGps": "114.329406,22.678688",
+	"stationId": "216",
+	"stationName": "深业东城国际A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1078,1906,3320",
+	"nextStaIds": "213,218,219",
+	"rangeRadius": 5.0,
+	"staGps": "114.32924,22.678258",
+	"stationId": "217",
+	"stationName": "深业东城国际B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "911,1926,844",
+	"nextStaIds": "214,219,213",
+	"rangeRadius": 5.0,
+	"staGps": "114.344314,22.679089",
+	"stationId": "218",
+	"stationName": "心海城",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "2067,3200,3322,3553",
+	"nextStaIds": "218,206,222,223",
+	"rangeRadius": 5.0,
+	"staGps": "114.359063,22.679396",
+	"stationId": "219",
+	"stationName": "比亚迪正门",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "861,829,1064,723,1001,1063,1048,4123",
+	"nextStaIds": "206,107,221,222,205,202,223,219",
+	"rangeRadius": 5.0,
+	"staGps": "114.349555,22.702546",
+	"stationId": "220",
+	"stationName": "坪山中心广场",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "910,1148",
+	"nextStaIds": "220,204",
+	"rangeRadius": 5.0,
+	"staGps": "114.351486,22.708037",
+	"stationId": "221",
+	"stationName": "坪山区政府",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "914,1236,1229,1285,1086,3880",
+	"nextStaIds": "220,221,205,202,206,219",
+	"rangeRadius": 5.0,
+	"staGps": "114.352135,22.699797",
+	"stationId": "222",
+	"stationName": "坪山公安局分局",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "2674,3603,3669,1187,1490",
+	"nextStaIds": "222,206,107,225,101",
+	"rangeRadius": 5.0,
+	"staGps": "114.356282,22.700985",
+	"stationId": "223",
+	"stationName": "金茂园大酒店",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "105,1431,1866,2803,2790,600",
+	"nextStaIds": "225,223,222,107,206,101",
+	"rangeRadius": 5.0,
+	"staGps": "114.364901,22.702447",
+	"stationId": "224",
+	"stationName": "益科大厦",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "105",
+	"nextStaIds": "224",
+	"rangeRadius": 5.0,
+	"staGps": "114.364833,22.70143",
+	"stationId": "225",
+	"stationName": "大工业社康中心",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1838,2745,2755,1542,1143,656",
+	"nextStaIds": "222,107,206,223,225,101",
+	"rangeRadius": 5.0,
+	"staGps": "114.367697,22.704454",
+	"stationId": "226",
+	"stationName": "启兴生活区",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "2870,2375,3253,3948,3951,4108",
+	"nextStaIds": "228,226,219,107,206,222",
+	"rangeRadius": 5.0,
+	"staGps": "114.368759,22.691562",
+	"stationId": "227",
+	"stationName": "会展中心",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1569,2079,1798,2346,3540,2736,2834,2072",
+	"nextStaIds": "233,105,229,230,231,232,234,102",
+	"rangeRadius": 5.0,
+	"staGps": "114.377793,22.705112",
+	"stationId": "228",
+	"stationName": "萨米医疗中心A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "606,2199,1600,1179,2099,2243,3009",
+	"nextStaIds": "230,106,233,232,102,105,234",
+	"rangeRadius": 5.0,
+	"staGps": "114.384571,22.713381",
+	"stationId": "229",
+	"stationName": "连展科技",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "2942,1621,1214,2333,2853,2838,3577",
+	"nextStaIds": "106,229,231,233,105,102,234",
+	"rangeRadius": 5.0,
+	"staGps": "114.381989,22.717848",
+	"stationId": "230",
+	"stationName": "洲明科技",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1852,1977,1347,152,2638,629,1506,2599",
+	"nextStaIds": "102,105,233,232,106,230,229,234",
+	"rangeRadius": 5.0,
+	"staGps": "114.386491,22.719069",
+	"stationId": "231",
+	"stationName": "昂纳集团",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "2165,834,3468",
+	"nextStaIds": "229,231,106",
+	"rangeRadius": 5.0,
+	"staGps": "114.386714,22.719022",
+	"stationId": "232",
+	"stationName": "迈乐工业园",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "1410,670,663,1324,1057,1509",
+	"nextStaIds": "234,105,102,232,229,106",
+	"rangeRadius": 5.0,
+	"staGps": "114.391465,22.707813",
+	"stationId": "233",
+	"stationName": "竹坑社区",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "287",
+	"nextStaIds": "235",
+	"rangeRadius": 5.0,
+	"staGps": "114.399841,22.702158",
+	"stationId": "234",
+	"stationName": "深圳技术大学A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "892,932",
+	"nextStaIds": "102,105",
+	"rangeRadius": 5.0,
+	"staGps": "114.39968,22.702791",
+	"stationId": "235",
+	"stationName": "深圳技术大学B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1001",
+	"nextStaDistances": "383,436",
+	"nextStaIds": "105,102",
+	"rangeRadius": 5.0,
+	"staGps": "114.398453,22.710481",
+	"stationId": "236",
+	"stationName": "上坝社康中心",
+	"stationRouteType": 2,
+	"stationType": 2
+}]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+http://121.41.171.140:80/carpos_update
+
+[{
+	"carId": "1",
+    "carLoc": "121,31"
+}, {
+	"carId": "2",
+    "carLoc": "121,31"
+}, {
+	"carId": "3",
+    "carLoc": "121,31"
+}, {
+	"carId": "4",
+    "carLoc": "121,31"
+}, {
+	"carId": "5",
+    "carLoc": "121,31"
+}, {
+	"carId": "10",
+    "carLoc": "101,31"
+}]

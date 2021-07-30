@@ -1,0 +1,703 @@
+
+http://121.41.171.140:80/info_update
+[{
+	"cityCod": "1003",
+	"nextStaDistances": "630,2400,1230,2500",
+	"nextStaIds": "1002,1101,1108,1110",
+	"rangeRadius": 50.0,
+	"staGps": "121.261028,31.364997",
+	"stationId": "1001",
+	"stationName": "沪宜公路招贤路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "500",
+	"nextStaIds": "1003",
+	"rangeRadius": 50.0,
+	"staGps": "121.26393,31.360838",
+	"stationId": "1002",
+	"stationName": "沪宜公路洪德路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "600,1600",
+	"nextStaIds": "1004,1112",
+	"rangeRadius": 50.0,
+	"staGps": "121.266607,31.356889",
+	"stationId": "1003",
+	"stationName": "沪宜公路白银路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "700",
+	"nextStaIds": "1005",
+	"rangeRadius": 50.0,
+	"staGps": "121.269885,31.352304",
+	"stationId": "1004",
+	"stationName": "石岗A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "500,2700",
+	"nextStaIds": "1006,1114",
+	"rangeRadius": 50.0,
+	"staGps": "121.275249,31.346944",
+	"stationId": "1005",
+	"stationName": "沪宜公路伊宁路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "600",
+	"nextStaIds": "1007",
+	"rangeRadius": 50.0,
+	"staGps": "121.277556,31.343375",
+	"stationId": "1006",
+	"stationName": "沪宜公路希望路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "300",
+	"nextStaIds": "1008",
+	"rangeRadius": 50.0,
+	"staGps": "121.280737,31.338381",
+	"stationId": "1007",
+	"stationName": "沪宜公路双单路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "700",
+	"nextStaIds": "1009",
+	"rangeRadius": 50.0,
+	"staGps": "121.281756,31.335508",
+	"stationId": "1008",
+	"stationName": "马陆镇A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "900",
+	"nextStaIds": "1010",
+	"rangeRadius": 50.0,
+	"staGps": "121.284572,31.330559",
+	"stationId": "1009",
+	"stationName": "沪宜公路宝安公路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "1700",
+	"nextStaIds": "1011",
+	"rangeRadius": 50.0,
+	"staGps": "121.288408,31.323314",
+	"stationId": "1010",
+	"stationName": "沪宜公路亚钢路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "500",
+	"nextStaIds": "1012",
+	"rangeRadius": 50.0,
+	"staGps": "121.296669,31.308365",
+	"stationId": "1011",
+	"stationName": "大桥头A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "90,645,2100,2700",
+	"nextStaIds": "1201,1301,1306,1309",
+	"rangeRadius": 50.0,
+	"staGps": "121.300306,31.302837",
+	"stationId": "1012",
+	"stationName": "沪宜公路陈翔路A",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "400",
+	"nextStaIds": "1102",
+	"rangeRadius": 50.0,
+	"staGps": "121.248295,31.381795",
+	"stationId": "1101",
+	"stationName": "城中路张马路B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "719",
+	"nextStaIds": "1103",
+	"rangeRadius": 50.0,
+	"staGps": "121.245894,31.384925",
+	"stationId": "1102",
+	"stationName": "城中路清河路B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "450",
+	"nextStaIds": "1104",
+	"rangeRadius": 50.0,
+	"staGps": "121.240176,31.389083",
+	"stationId": "1103",
+	"stationName": "嘉定区中心医院B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "500",
+	"nextStaIds": "1105",
+	"rangeRadius": 50.0,
+	"staGps": "121.237542,31.390933",
+	"stationId": "1104",
+	"stationName": "公交嘉定北站",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "730",
+	"nextStaIds": "1106",
+	"rangeRadius": 50.0,
+	"staGps": "121.240015,31.389015",
+	"stationId": "1105",
+	"stationName": "嘉定区中心医院A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "410",
+	"nextStaIds": "1107",
+	"rangeRadius": 50.0,
+	"staGps": "121.245953,31.384687",
+	"stationId": "1106",
+	"stationName": "城中路清河路A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "2400",
+	"nextStaIds": "1002",
+	"rangeRadius": 50.0,
+	"staGps": "121.248482,31.381339",
+	"stationId": "1107",
+	"stationName": "城中路张马路A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "1200",
+	"nextStaIds": "1109",
+	"rangeRadius": 50.0,
+	"staGps": "121.268285,31.372205",
+	"stationId": "1108",
+	"stationName": "嘉定区行政服务中心",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "2430",
+	"nextStaIds": "1002",
+	"rangeRadius": 50.0,
+	"staGps": "121.271037,31.378933",
+	"stationId": "1109",
+	"stationName": "墅沟路新成路",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "1700",
+	"nextStaIds": "1111",
+	"rangeRadius": 50.0,
+	"staGps": "121.241951,31.374948",
+	"stationId": "1110",
+	"stationName": "塔城路高昌路",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "4200",
+	"nextStaIds": "1002",
+	"rangeRadius": 50.0,
+	"staGps": "121.227864,31.377165",
+	"stationId": "1111",
+	"stationName": "公交嘉定西",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "940",
+	"nextStaIds": "1113",
+	"rangeRadius": 50.0,
+	"staGps": "121.254032,31.349975",
+	"stationId": "1112",
+	"stationName": "白银路永盛路",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "2900",
+	"nextStaIds": "1104",
+	"rangeRadius": 50.0,
+	"staGps": "121.245009,31.345618",
+	"stationId": "1113",
+	"stationName": "白银路",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "1500",
+	"nextStaIds": "1115",
+	"rangeRadius": 50.0,
+	"staGps": "121.255432,31.344738",
+	"stationId": "1114",
+	"stationName": "天祝路永盛路",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "466",
+	"nextStaIds": "1116",
+	"rangeRadius": 50.0,
+	"staGps": "121.259125,31.334179",
+	"stationId": "1115",
+	"stationName": "双丁路永盛路",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "2900",
+	"nextStaIds": "1006",
+	"rangeRadius": 50.0,
+	"staGps": "121.254061,31.331256",
+	"stationId": "1116",
+	"stationName": "公交嘉定新城",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "553",
+	"nextStaIds": "1202",
+	"rangeRadius": 50.0,
+	"staGps": "121.299883,31.30446",
+	"stationId": "1201",
+	"stationName": "沪宜公路陈翔路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "1700",
+	"nextStaIds": "1203",
+	"rangeRadius": 50.0,
+	"staGps": "121.296401,31.309745",
+	"stationId": "1202",
+	"stationName": "大桥头B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "900",
+	"nextStaIds": "1204",
+	"rangeRadius": 50.0,
+	"staGps": "121.288993,31.322723",
+	"stationId": "1203",
+	"stationName": "沪宜公路亚钢路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "700",
+	"nextStaIds": "1205",
+	"rangeRadius": 50.0,
+	"staGps": "121.285294,31.329701",
+	"stationId": "1204",
+	"stationName": "沪宜公路宝安公路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "300",
+	"nextStaIds": "1206",
+	"rangeRadius": 50.0,
+	"staGps": "121.282169,31.335013",
+	"stationId": "1205",
+	"stationName": "马陆镇B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "600",
+	"nextStaIds": "1207",
+	"rangeRadius": 50.0,
+	"staGps": "121.28019,31.339709",
+	"stationId": "1206",
+	"stationName": "沪宜公路双单路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "500",
+	"nextStaIds": "1208",
+	"rangeRadius": 50.0,
+	"staGps": "121.276923,31.344813",
+	"stationId": "1207",
+	"stationName": "沪宜公路希望路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "700",
+	"nextStaIds": "1209",
+	"rangeRadius": 50.0,
+	"staGps": "121.273956,31.348341",
+	"stationId": "1208",
+	"stationName": "沪宜公路伊宁路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "600",
+	"nextStaIds": "1210",
+	"rangeRadius": 50.0,
+	"staGps": "121.270298,31.352038",
+	"stationId": "1209",
+	"stationName": "石岗B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "800",
+	"nextStaIds": "1211",
+	"rangeRadius": 50.0,
+	"staGps": "121.267315,31.356331",
+	"stationId": "1210",
+	"stationName": "沪宜公路白银路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "630",
+	"nextStaIds": "1212",
+	"rangeRadius": 50.0,
+	"staGps": "121.264697,31.360183",
+	"stationId": "1211",
+	"stationName": "沪宜公路洪德路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "582",
+	"nextStaIds": "1001",
+	"rangeRadius": 50.0,
+	"staGps": "121.260443,31.366174",
+	"stationId": "1212",
+	"stationName": "沪宜公路招贤路B",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "1500",
+	"nextStaIds": "1302",
+	"rangeRadius": 50.0,
+	"staGps": "121.302503,31.296279",
+	"stationId": "1301",
+	"stationName": "沪宜公路裕丰路B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "710",
+	"nextStaIds": "1303",
+	"rangeRadius": 50.0,
+	"staGps": "121.304107,31.291709",
+	"stationId": "1302",
+	"stationName": "沪宜公路德华路B",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "792",
+	"nextStaIds": "1304",
+	"rangeRadius": 50.0,
+	"staGps": "121.309556,31.290489",
+	"stationId": "1303",
+	"stationName": "隆兴桥",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "517",
+	"nextStaIds": "1305",
+	"rangeRadius": 50.0,
+	"staGps": "121.30415,31.290247",
+	"stationId": "1304",
+	"stationName": "沪宜公路德华路A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "954",
+	"nextStaIds": "1201",
+	"rangeRadius": 50.0,
+	"staGps": "121.301859,31.29726",
+	"stationId": "1305",
+	"stationName": "沪宜公路裕丰路A",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "652",
+	"nextStaIds": "1307",
+	"rangeRadius": 50.0,
+	"staGps": "121.309289,31.286396",
+	"stationId": "1306",
+	"stationName": "南翔镇",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "940",
+	"nextStaIds": "1308",
+	"rangeRadius": 50.0,
+	"staGps": "121.315152,31.289248",
+	"stationId": "1307",
+	"stationName": "古琦园",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "4100",
+	"nextStaIds": "1201",
+	"rangeRadius": 50.0,
+	"staGps": "121.32345,31.295531",
+	"stationId": "1308",
+	"stationName": "蓝天创业广场",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "584",
+	"nextStaIds": "1310",
+	"rangeRadius": 50.0,
+	"staGps": "121.32243,31.293426",
+	"stationId": "1309",
+	"stationName": "南翔派出所",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "2750",
+	"nextStaIds": "1311",
+	"rangeRadius": 50.0,
+	"staGps": "121.321954,31.296865",
+	"stationId": "1310",
+	"stationName": "公交南翔站",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "545",
+	"nextStaIds": "1201",
+	"rangeRadius": 50.0,
+	"staGps": "121.304537,31.305693",
+	"stationId": "1311",
+	"stationName": "陈翔公路德园路",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "500",
+	"nextStaIds": "1402",
+	"rangeRadius": 50.0,
+	"staGps": "106.527996,29.583584",
+	"stationId": "1401",
+	"stationName": "红旗河沟",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "600,600",
+	"nextStaIds": "1401,1403",
+	"rangeRadius": 50.0,
+	"staGps": "106.499401,29.616077",
+	"stationId": "1402",
+	"stationName": "光电园",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "300",
+	"nextStaIds": "1404",
+	"rangeRadius": 50.0,
+	"staGps": "106.481107,29.62981",
+	"stationId": "1403",
+	"stationName": "大竹林",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "400",
+	"nextStaIds": "1401",
+	"rangeRadius": 50.0,
+	"staGps": "106.50883,29.615256",
+	"stationId": "1404",
+	"stationName": "幸福广场",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "400",
+	"nextStaIds": "1401",
+	"rangeRadius": 50.0,
+	"staGps": "106.53355,29.57252",
+	"stationId": "1405",
+	"stationName": "观音桥",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "400",
+	"nextStaIds": "1401",
+	"rangeRadius": 50.0,
+	"staGps": "106.568583,29.527566",
+	"stationId": "1406",
+	"stationName": "南坪",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "400",
+	"nextStaIds": "1401",
+	"rangeRadius": 50.0,
+	"staGps": "106.492263,29.736016",
+	"stationId": "1407",
+	"stationName": "蔡家",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "400",
+	"nextStaIds": "1401",
+	"rangeRadius": 50.0,
+	"staGps": "106.437485,29.825287",
+	"stationId": "1408",
+	"stationName": "北碚",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "400",
+	"nextStaIds": "1401",
+	"rangeRadius": 50.0,
+	"staGps": "105.227803,30.237201",
+	"stationId": "1409",
+	"stationName": "悦来",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "400",
+	"nextStaIds": "1401",
+	"rangeRadius": 50.0,
+	"staGps": "106.551187,29.584003",
+	"stationId": "1410",
+	"stationName": "红土地",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "335",
+	"nextStaIds": "1412",
+	"rangeRadius": 5.0,
+	"staGps": "106.461597,29.633664",
+	"stationId": "1411",
+	"stationName": "金海大道金开大道",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "435,248",
+	"nextStaIds": "1413,1415",
+	"rangeRadius": 5.0,
+	"staGps": "106.464059,29.635738",
+	"stationId": "1412",
+	"stationName": "金海大道青园路",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "416",
+	"nextStaIds": "1414",
+	"rangeRadius": 5.0,
+	"staGps": "106.466703,29.63881",
+	"stationId": "1413",
+	"stationName": "金海大道壹江郡",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "1186",
+	"nextStaIds": "1411",
+	"rangeRadius": 5.0,
+	"staGps": "106.469272,29.641714",
+	"stationId": "1414",
+	"stationName": "金海大道通海五路",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "410",
+	"nextStaIds": "1416",
+	"rangeRadius": 5.0,
+	"staGps": "106.466376,29.635583",
+	"stationId": "1415",
+	"stationName": "青园路恒山西路",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1002",
+	"nextStaDistances": "455",
+	"nextStaIds": "1414",
+	"rangeRadius": 5.0,
+	"staGps": "106.469624,29.637851",
+	"stationId": "1416",
+	"stationName": "青园路壹江郡",
+	"stationRouteType": 2,
+	"stationType": 2
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "148",
+	"nextStaIds": "1902",
+	"rangeRadius": 5.0,
+	"staGps": "121.226651,31.284667",
+	"stationId": "1901",
+	"stationName": "西站",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "60",
+	"nextStaIds": "1903",
+	"rangeRadius": 5.0,
+	"staGps": "121.228248,31.284965",
+	"stationId": "1902",
+	"stationName": "东站北",
+	"stationRouteType": 1,
+	"stationType": 1
+}, {
+	"cityCod": "1003",
+	"nextStaDistances": "236",
+	"nextStaIds": "1901",
+	"rangeRadius": 5.0,
+	"staGps": "121.228196,31.284557",
+	"stationId": "1903",
+	"stationName": "东站南",
+	"stationRouteType": 1,
+	"stationType": 1
+}]

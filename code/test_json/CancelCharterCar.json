@@ -1,0 +1,11 @@
+http://121.41.171.140:80/CancelCharterCar
+
+[{
+    "oId": "0",
+    "fromId": "1102",
+    "toId": "1307",
+    "startTime": "1234567",
+    "charteredBusNum": "5",
+    "ticketNumber": 23
+}
+]

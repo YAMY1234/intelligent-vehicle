@@ -1,0 +1,15 @@
+http://121.41.171.140:80/seat_allocation
+
+
+[
+    {
+    "travelId": 0,
+    "modifyOrderId": "",
+    "carId": "92",
+    "correspondOrderId": "0",
+    "correspondNumber": "13",
+    "orderUserId": [{"orderId":"0", "userId":"0,1,2"}],
+    "userPreference": [{"u_id":"0","seat_preference":"1，3"}],
+    "setTime": 1
+}
+]

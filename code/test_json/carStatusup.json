@@ -1,0 +1,51 @@
+http://121.41.171.140:80/carStatusup
+[{
+	"carId": "1",
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003,
+    "carLoc": "114.391465,22.707813",
+    "carStatus": 1,
+    "driverid": ""
+}, {
+	"carId": "2",
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003,
+    "carLoc": "114.399841,22.702158",
+    "carStatus": 1,
+    "driverid": ""
+}, {
+	"carId": "3",
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003,
+    "carLoc": "114.39968,22.702791",
+    "carStatus": 1,
+    "driverid": ""
+}, {
+	"carId": "4",
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003,
+    "carLoc": "114.39968,22.702791",
+    "carStatus": 1,
+    "driverid": ""
+}, {
+	"carId": "5",
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003,
+    "carLoc": "114.39968,22.702791",
+    "carStatus": 1,
+    "driverid": ""
+}, {
+	"carId": "10",
+	"carOperatonStatus": 0,
+	"carSeatNumber": 15,
+	"carType": 2,
+	"cityType": 1003,
+    "carLoc": "114.39968,22.702791",
+    "carStatus": 1,
+    "driverid": ""
+}]

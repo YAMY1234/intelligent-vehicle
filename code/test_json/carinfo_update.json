@@ -1,0 +1,38 @@
+http://121.41.171.140:80/carinfo_update
+[{
+	"carId": "1",
+	"carOperatonStatus": 0,
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003
+}, {
+	"carId": "2",
+	"carOperatonStatus": 0,
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003
+}, {
+	"carId": "3",
+	"carOperatonStatus": 0,
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003
+}, {
+	"carId": "4",
+	"carOperatonStatus": 0,
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003
+}, {
+	"carId": "5",
+	"carOperatonStatus": 0,
+	"carSeatNumber": 5,
+	"carType": 1,
+	"cityType": 1003
+}, {
+	"carId": "10",
+	"carOperatonStatus": 0,
+	"carSeatNumber": 15,
+	"carType": 2,
+	"cityType": 1003
+}]
