@@ -31,7 +31,7 @@ car_num = 5
 tasks_all = dict()
 tickets_buffer = dict()
 
-app_car_info, app_city_info, app_platform_info, road_info = dataloader('../data').load_all_info()
+app_car_info, app_city_info, app_platform_info, road_info = dataloader('data/data').load_all_info()# ../data
 car_info = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).makefakecarpos()
 car_group_data = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).car_group_data()
 

@@ -1,4 +1,6 @@
 http://121.41.171.140:80/carinfo_update
+http://39.108.37.173/carinfo_update
+
 [{
 	"carId": "1",
 	"carOperatonStatus": 0,
