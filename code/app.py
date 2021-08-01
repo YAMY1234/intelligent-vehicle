@@ -16,7 +16,8 @@ from car_seat_info import *
 from ReturnRequest import *
 import itertools
 import pickle
-
+import pandas as pd
+import openpyxl
 
 car_seat_info = make_car_seat_info()
 all_arranges = []
@@ -35,8 +36,6 @@ app_car_info, app_city_info, app_platform_info, road_info = dataloader('data/dat
 car_info = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).makefakecarpos()
 car_group_data = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).car_group_data()
 
-
-
 with open('data/app_platform_info.pkl', 'rb') as f:
     app_platform_info = pickle.load(f)
 f.close()
@@ -54,11 +53,29 @@ f.close()
 print(car_info)
 print(car_group_data)
 init_group_car(car_group_data)
-
-
 #print(road_info)
 print(car_group_data)
 print(car_info)
+
+############################### 日志编写函数  ########################
+def log_writer(route,info,res):
+    try:
+        f = "data/log.txt"
+        with open(f, 'a') as file:  # 只需要将之前的”w"改为“a"即可，代表追加内容
+            try:
+                stamp = int(time.time())
+                log="################################################################"
+                log=log+time.strftime("%Y-%m-%d %H:%M", time.localtime(stamp))+"\n"+"请求路由:\n"+route+"\n"+"请求信息内容:\n"+str(info)+"返回信息内容:\n"+str(res)+"\n\n"
+                log+="----------当前车辆状态：\n CAR_GROUP_DATA:\n"+str(car_group_data)+"\nCAR_INO\n"+str(car_info)
+                file.write("\n\n")
+                file.write(log)
+                file.close()
+            except:
+                file.write("!!!!!!!!!!!!!!\n\n"+"LOG INFO PROBLEM\n\n")
+    except:
+        print("LOG OPEN PROBLEM!!!!")
+    pass
+
 ## TODO 
 ## 1 将车辆信息和站点绑定
 ## 2 分配车辆时考虑车辆的位置
@@ -66,6 +83,14 @@ print(car_info)
 ## 4 假订单生成的程序
 
 app = Flask(__name__)
+
+#建立一个测试函数
+@app.route('/print_roadinfo',methods=['GET','POST'])
+def print_roadinfo():
+    df_index = pd.DataFrame.from_dict(road_info, orient='index')
+    df_index.to_excel("data/road_info.xlsx")
+    log_writer("print_roadinfo","null","null")
+    return json.dumps({"status": 1, "suggust": 'ok'})
 
 # 路网信息更新系统接口
 @app.route('/info_update',methods=['GET', 'POST','DELECT'])
@@ -89,6 +114,7 @@ def info_update():
             with open('data/road_info.pkl', 'wb') as f:
                 pickle.dump(road_info, f, pickle.HIGHEST_PROTOCOL)
             f.close()
+            log_writer("info_update",request.json,json.dumps({"status": 1, "suggust": ''}))
             return json.dumps({"status": 1, "suggust": ''})
         except:
             return json.dumps({"status": 0, "suggust": ''})
@@ -179,15 +205,13 @@ def get_name():
                 final_task['status'] = sta
                 final_task['task'] = [tasks[list(tasks.keys())[flag]]]
                 final_task['line'] =[]
-                final_info = [final_info,final_task]
+                final_info.append(final_task)
                 flag+=1
 
         add_new_task_to_all(tasks, tasks_all)
-        #print(tasks_all)
-        #print(json.dumps([tasks[i] for i in tasks.keys()]))
-        return json.dumps(final_info, ensure_ascii=False).encode('utf8')
-        #except:
-            #return json.dumps({"status": 3, "task": [], "line": []})
+        result = json.dumps(final_info,ensure_ascii=False).encode('utf8')
+        log_writer("/algorithm", request.json , result[1:-1])
+        return result[1:-1]
 
 # 车辆信息更新系统接口								
 # 接口地址			http://47.111.139.187:5000/carinfo_update					
@@ -226,6 +250,7 @@ def carinfo_update():
             with open('data/car_info.pkl', 'wb') as f:
                 pickle.dump(car_info, f, pickle.HIGHEST_PROTOCOL)
             f.close()
+            log_writer("/carinfo_update", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
         except:
             return json.dumps({"status": 0})
@@ -279,8 +304,10 @@ def carStatusup():
             with open('data/car_group_data.pkl', 'wb') as f:
                 pickle.dump(car_group_data, f, pickle.HIGHEST_PROTOCOL)
             f.close()
+            log_writer("/carStatusup", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
         except:
+            log_writer("/carStatusup", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
 
 
@@ -302,8 +329,10 @@ def carpos_update():
                 car_info[car_id] = temp_car_info
                 car_group_data[car_id]['car_gps'] = car['carLoc']
             init_group_car(car_group_data)
+            log_writer("/carpos_update", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
         except:
+            log_writer("/carpos_update", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
 
 
@@ -399,6 +428,7 @@ def seat_allocation():
             seat_arrange = arrange_seat_2_seat(ticket, task, car_seat_info, car_info)
             arranges.append(seat_arrange)
             all_arranges.append(seat_arrange)
+    log_writer("/seat_allocation", request.json, json.dumps({"status": 1}))
     return json.dumps(arranges)
 
 
@@ -443,6 +473,7 @@ def share_car():
                 ticket = tickets[name]
                 return_message = share_car_task_arrange(tasks_all, ticket, car_info, app_platform_info)
                 return_info.append(return_message)
+        log_writer("/algorithmA", request.json, json.dumps(return_info))
         return json.dumps(return_info)
 
 # 取消行程算法系统接口												
@@ -531,7 +562,8 @@ def delete_ticket():
                             #    break
             
             tasks_all[n] = task
-            return_info.append({'status': status, 'task': task, 'correspondSeatId': correspondSeatId}) 
+            return_info.append({'status': status, 'task': task, 'correspondSeatId': correspondSeatId})
+        log_writer("/algorithmC", request.json, json.dumps(return_info))
         return json.dumps(return_info)
 
 
@@ -567,6 +599,7 @@ def marshalling():
         car_return['car_status'] = 0
         car_return['new_marshalling_list'] = []
         print(car_group_data)
+        log_writer("/marshalling", request.json, car_return)
         return car_return
 
 # 包车算法系统接口									
@@ -651,6 +684,7 @@ def chartercar():
                 flag+=1
         add_new_task_to_all(tasks, tasks_all)
         print(tasks_all)
+        log_writer("/CharterCar", request.json, json.dumps(final_info))
         return json.dumps(final_info)
 
 # 包车算法系统接口									
@@ -709,7 +743,7 @@ def CancelCharterCar():
                 return_message['status'] = 301
                 return_message['suggest'] = ''
                 return_info = return_message
-                
+        log_writer("/CharterCar", request.json, return_info)
         return return_info
 
 # 包车行程座位分配系统接口(在接口表现上和新增行程座位分配没有区别，是否输入参数加个type区分？)									
@@ -751,6 +785,7 @@ def seat_allocation_for_charetercar():
             ticket = tickets[name]
             seat_arrange = arrange_seat_2_seat(ticket, task, car_seat_info, car_info)
             arranges.append(seat_arrange)
+    log_writer("/seat_allocation_for_charetercar", request.json, json.dumps(arranges))
     return json.dumps(arranges)
 
 # 路径规划与距离计算系统接口 
@@ -808,6 +843,7 @@ def path_planning():
                 info['distance'] = min_dist
                 info['travelPlat'] = ",".join(route + [toId])
                 return_info = info
+        log_writer("/seat_allocation_for_charetercar", request.json, json.dumps(return_info))
         return json.dumps(return_info)
         
             
@@ -821,4 +857,7 @@ def path_planning():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    try:
+        app.run(host='0.0.0.0', port=80)
+    except:
+        app.run(host='0.0.0.0', port=81)
