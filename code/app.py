@@ -31,7 +31,7 @@ car_num = 5
 tasks_all = dict()
 tickets_buffer = dict()
 
-app_car_info, app_city_info, app_platform_info, road_info = dataloader('../data').load_all_info()
+app_car_info, app_city_info, app_platform_info, road_info = dataloader('data/data').load_all_info()
 car_info = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).makefakecarpos()
 car_group_data = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).car_group_data()
 
@@ -179,7 +179,7 @@ def get_name():
                 final_task['status'] = sta
                 final_task['task'] = [tasks[list(tasks.keys())[flag]]]
                 final_task['line'] =[]
-                final_info = final_task
+                final_info = [final_info,final_task]
                 flag+=1
 
         add_new_task_to_all(tasks, tasks_all)
@@ -821,4 +821,4 @@ def path_planning():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=81)
