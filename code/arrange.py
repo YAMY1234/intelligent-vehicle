@@ -176,14 +176,14 @@ def get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_grou
     passengers = int(ticket['ticketNumber'])
     car_rest_info = {4:len(empty_car_4.keys()), 14:len(empty_car_14.keys()), 22:len(empty_car_22.keys())}
     car_book_info = {4:0, 14:0, 22:0}
-    print(car_rest_info)
+    # print(car_rest_info)
 
     rest_seat = 0
     for key,value in car_rest_info.items():
         rest_seat += key*value
 
     car_book_info = arrange_car(passengers, car_rest_info, car_book_info, rest_seat)
-    print(car_book_info)
+    # print(car_book_info)
     cars = []
     
     if car_book_info:

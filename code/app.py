@@ -16,6 +16,8 @@ from car_seat_info import *
 from ReturnRequest import *
 import itertools
 import pickle
+import pandas as pd
+import openpyxl
 
 
 car_seat_info = make_car_seat_info()
@@ -51,21 +53,38 @@ with open('data/car_group_data.pkl', 'rb') as f:
 f.close()
 
 
-print(car_info)
-print(car_group_data)
-init_group_car(car_group_data)
+# print(car_info)
+# print(car_group_data)
+# init_group_car(car_group_data)
+#
+#
+# #print(road_info)
+# print(car_group_data)
+# print(car_info)
 
 
-#print(road_info)
-print(car_group_data)
-print(car_info)
+
+
 ## TODO 
 ## 1 将车辆信息和站点绑定
 ## 2 分配车辆时考虑车辆的位置
 ## 3 得到车辆的行驶轨迹
 ## 4 假订单生成的程序
 
+
+
+
+
+
 app = Flask(__name__)
+
+#建立一个测试函数
+@app.route('/print_roadinfo',methods=['GET','POST'])
+def print_roadinfo():
+    df_index = pd.DataFrame.from_dict(road_info, orient='index')
+    df_index.to_excel("data/road_info.xlsx")
+    return json.dumps({"status": 1, "suggust": 'ok'})
+
 
 # 路网信息更新系统接口
 @app.route('/info_update',methods=['GET', 'POST','DELECT'])
@@ -135,22 +154,22 @@ def info_update():
 def get_name():
     if request.method == 'POST':
         #try:
-        print(car_group_data)
-        print(car_info)
+        # print(car_group_data)
+        # print(car_info)
         tickets_json = request.json
-        print(request.json)
+        # print(request.json)
         tickets = dict()
         for num,ticket in enumerate(tickets_json):
             tickets[ticket["oId"]] = ticket
         tasks = dict()
         status = []
         new_tickets = merge_to_newtickets(tickets)
-        print(new_tickets)
+        # print(new_tickets)#对的，一共有两个
         for name in new_tickets.keys():
             ticket = new_tickets[name]
             start_pos = ticket['fromId']
             cars, seat = get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_group_data)
-            print(cars, seat, ticket['ticketNumber'])
+            # print(cars, seat, ticket['ticketNumber'])
             if cars:
                 if len(tasks) == 0:
                     begin_id = len(tasks_all)
@@ -177,9 +196,9 @@ def get_name():
             else:
                 final_task = dict()
                 final_task['status'] = sta
-                final_task['task'] = [tasks[list(tasks.keys())[flag]]]
+                final_task['task'] = [tasks[list(tasks.keys())[flag]]]#final_task['task'],
                 final_task['line'] =[]
-                final_info = final_task
+                final_info = [final_info,final_task]
                 flag+=1
 
         add_new_task_to_all(tasks, tasks_all)
