@@ -85,11 +85,13 @@ def log_writer(route,info,res):
                 file.write("\n\n")
                 file.write(log)
                 file.close()
+                return "ok"
             except:
                 file.write("!!!!!!!!!!!!!!\n\n"+"LOG INFO PROBLEM\n\n")
+                return "NOT OK"
     except:
         print("LOG OPEN PROBLEM!!!!")
-    pass
+        return "NOT OK"
 
 ## TODO 
 ## 1 将车辆信息和站点绑定
@@ -750,7 +752,7 @@ def CancelCharterCar():
                 else:
                     del tasks_all[task_id]
                     flag = 1
-                    car_info[carId]['status'] = 0 
+                    car_info[carId]['status'] = 0
                     return_message = dict()
                     return_message['status'] = 201
                     return_message['suggest'] = ''
@@ -762,7 +764,7 @@ def CancelCharterCar():
                 return_message['suggest'] = ''
                 return_info = return_message
         log_writer("/CharterCar", request.json, return_info)
-        return return_info
+        return json.dumps(return_info)
 
 # 包车行程座位分配系统接口(在接口表现上和新增行程座位分配没有区别，是否输入参数加个type区分？)									
 # 接口地址			http://47.111.139.187:5000/seat_allocation_for_charetercar						
