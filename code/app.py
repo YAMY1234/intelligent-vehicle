@@ -209,25 +209,23 @@ def get_name():
 
         final_info = []
         flag = 0
+        final_task = dict()
+        final_task['task'] = []
+        final_task['line'] = []
         for num, sta in enumerate(status):
+            final_task['status'] = sta
             if sta == 3:
-                final_task = dict()
-                final_task['status'] = sta
-                final_task['task'] = []
-                final_task['line'] = []
                 final_info = final_task
             else:
-                final_task = dict()
-                final_task['status'] = sta
-                final_task['task'] = [tasks[list(tasks.keys())[flag]]]
-                final_task['line'] =[]
-                final_info.append(final_task)
+                # final_task['task'] = [tasks[list(tasks.keys())[flag]]]
+                final_task['task'].append([tasks[list(tasks.keys())[flag]]])
+                # final_info.append(final_task)
                 flag+=1
-
+        final_info=final_task
         add_new_task_to_all(tasks, tasks_all)
         result = json.dumps(final_info,ensure_ascii=False).encode('utf8')
-        log_writer("/algorithm", request.json , result[1:-1])
-        return result[1:-1]
+        log_writer("/algorithm", request.json , result)
+        return result
 
 # 车辆信息更新系统接口								
 # 接口地址			http://47.111.139.187:5000/carinfo_update					
@@ -870,15 +868,6 @@ def path_planning():
 新增接口
 去除掉car_info当中的信息同时进行同步
 '''
-            
-
-
-
-
-
-            
-
-
 
 if __name__ == '__main__':
     try:
