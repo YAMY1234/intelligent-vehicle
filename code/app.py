@@ -18,6 +18,21 @@ import itertools
 import pickle
 import pandas as pd
 import openpyxl
+'''
+CAR_INFO_node
+  "14": {
+    "vehicleId": "14",
+    "seat": 4,
+    "carType": 1,
+    "carOperatonStatus": 0,
+    "lng": "114.371986",
+    "lat": "22.708854",
+    "status": 0,
+    "driverId": "10010003"
+  },
+'''
+
+
 
 car_seat_info = make_car_seat_info()
 all_arranges = []
@@ -61,11 +76,11 @@ print(car_info)
 def log_writer(route,info,res):
     try:
         f = "data/log.txt"
-        with open(f, 'a') as file:  # 只需要将之前的”w"改为“a"即可，代表追加内容
+        with open(f, encoding='utf-8',mode='a') as file:  # 只需要将之前的”w"改为“a"即可，代表追加内容
             try:
                 stamp = int(time.time())
                 log="################################################################"
-                log=log+time.strftime("%Y-%m-%d %H:%M", time.localtime(stamp))+"\n"+"请求路由:\n"+route+"\n"+"请求信息内容:\n"+str(info)+"返回信息内容:\n"+str(res)+"\n\n"
+                log=log+time.strftime("%Y-%m-%d %H:%M", time.localtime(stamp))+"\n"+"请求路由:\n"+route+"\n"+"请求信息内容:\n"+str(info)+"\n返回信息内容:\n"+str(res)+"\n\n"
                 log+="----------当前车辆状态：\n CAR_GROUP_DATA:\n"+str(car_group_data)+"\nCAR_INO\n"+str(car_info)
                 file.write("\n\n")
                 file.write(log)
@@ -157,7 +172,6 @@ def info_update():
 # 					warning	warning	str	警告		若OD两地之间不连接，提示“目的地错误，两地之间没有通路”			
 
 @app.route('/algorithm',methods=['GET', 'POST','DELECT'])
-
 def get_name():
     if request.method == 'POST':
         #try:
@@ -282,11 +296,15 @@ def carStatusup():
                 car_id = car['carId']
                 if car_id not in car_info.keys():
                     return json.dumps({"status": 0})
+                car_info['busy']=0
                 temp_car_info = car_info[car_id]
                 temp_car_info['lng'] = car['carLoc'].split(',')[0]
                 temp_car_info['lat'] = car['carLoc'].split(',')[1]
                 temp_car_info['status'] = abs(1 - car['carStatus'])
                 temp_car_info['driverId'] = car['driverId']
+                temp_car_info['busy'] = car['busy']
+                if temp_car_info['status'] == 1:
+                    temp_car_info['busy'] = 1
                 car_info[car_id] = temp_car_info
                 if car['carStatus'] == 1 and car_id not in car_group_data.keys():
                     car_group_data[car_id] = dict()
@@ -845,7 +863,11 @@ def path_planning():
                 return_info = info
         log_writer("/seat_allocation_for_charetercar", request.json, json.dumps(return_info))
         return json.dumps(return_info)
-        
+
+'''
+新增接口
+去除掉car_info当中的信息同时进行同步
+'''
             
 
 

@@ -130,15 +130,19 @@ cars：最后需要的车辆信息
 def select_car(car_info, num, road_info, app_platform_info, start_pos):
     car_dist_info = dict()
     for car in car_info.keys():
-        car_lat = car_info[car]['lat']
-        car_lng = car_info[car]['lng']
-        dist = compute_dist_map(road_info, app_platform_info, car_lat, car_lng, start_pos)
-        car_dist_info[car] = dist
+        if 'busy' not in car_info[car].keys():
+            car_info[car]['busy'] = 0
+        if car_info[car]['busy']==0: # 新增这个，避免重复派车
+            car_lat = car_info[car]['lat']
+            car_lng = car_info[car]['lng']
+            dist = compute_dist_map(road_info, app_platform_info, car_lat, car_lng, start_pos)
+            car_dist_info[car] = dist
     print(car_dist_info)
     car_dist_info = dict(sorted(car_dist_info.items(), key = lambda x:x[1], reverse=False))
     #print(car_dist_info)
     cars = list(car_dist_info.keys())[:num]
-
+    for car in cars:
+        car_info[car]['busy']=1 # 新增这个，避免重复派车
     return cars
 
 
@@ -162,7 +166,7 @@ def get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_grou
     empty_car_14= dict()
     empty_car_22 = dict()
 
-
+    # 修改：在这里面就去掉30分钟之内无法进行派车的车辆
     for car in car_info.keys():
         if (car in car_group_data.keys()) and car_info[car]['seat'] == 4:
             empty_car_4[car] = car_info[car]
@@ -193,7 +197,7 @@ def get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_grou
             cars = cars + select_car(empty_car_14, car_book_info[14]['num'], road_info, app_platform_info, start_pos)
         if car_book_info[22]['num'] > 0:
             cars = cars + select_car(empty_car_22, car_book_info[22]['num'], road_info, app_platform_info, start_pos)
-    
+
         seat = car_book_info[4]['seat_info'] + car_book_info[14]['seat_info'] + car_book_info[22]['seat_info']
         return cars, seat
     else:
