@@ -55,8 +55,10 @@ def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_in
         task['arriveTime'] = t_arrive
 
         # 行程号生成代码
-        task['travelId'] = 'XC07550' + '{0:%Y%m%d%H%M}'.format(datetime.datetime.now())[2:] + "".join(random.choices(string.digits, k=4))
-        
+        # task['travelId'] = 'XC07550' + '{0:%Y%m%d%H%M}'.format(datetime.datetime.now())[2:] + "".join(random.choices(string.digits, k=4))
+        # 行程号生成代码
+        task['travelId'] = 'XC07550' + '{0:%Y%m%d%H%M%S}'.format(datetime.datetime.now())[2:] + "".join(
+            random.choices(string.digits, k=3))
         #task['u_ids'] = u_id[flag: flag+task['itNumber']]
         tasks[str(task['travelId'])] = task
         flag += task['itNumber']
