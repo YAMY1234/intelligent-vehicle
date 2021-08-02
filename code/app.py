@@ -93,6 +93,7 @@ def log_writer(route,info,res):
         print("LOG OPEN PROBLEM!!!!")
         return "NOT OK"
 
+
 ## TODO 
 ## 1 将车辆信息和站点绑定
 ## 2 分配车辆时考虑车辆的位置
@@ -752,7 +753,7 @@ def CancelCharterCar():
                 else:
                     del tasks_all[task_id]
                     flag = 1
-                    car_info[carId]['status'] = 0
+                    car_info[carId]['status'] = 0 
                     return_message = dict()
                     return_message['status'] = 201
                     return_message['suggest'] = ''
