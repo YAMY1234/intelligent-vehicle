@@ -102,11 +102,6 @@ def log_writer(route, info, res):
         return "NOT OK"
 
 
-<<<<<<< HEAD
-## TODO 
-=======
-
->>>>>>> f88e137a9c71d114c4bf5057f3b39f7f8b42441c
 ## 1 将车辆信息和站点绑定
 ## 2 分配车辆时考虑车辆的位置
 ## 3 得到车辆的行驶轨迹
@@ -892,16 +887,8 @@ def path_planning():
 '''
 
 if __name__ == '__main__':
-<<<<<<< HEAD
-    app.run(host='0.0.0.0', port=80)
-    # try:
-    #     app.run(host='0.0.0.0', port=80)
-    # except:
-    #     app.run(host='0.0.0.0', port=81)
-=======
     time_count = 0
     try:
         app.run(host='0.0.0.0', port=80)
     except:
         app.run(host='0.0.0.0', port=83)
->>>>>>> f88e137a9c71d114c4bf5057f3b39f7f8b42441c
