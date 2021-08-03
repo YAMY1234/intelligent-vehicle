@@ -11,6 +11,7 @@ def ReturnRequest(dl_ord):
     status = 0
     suggest=""
     #车辆数、座位数、总人数参数
+    # maxzuoweibuffer 是总的座位数，maxbusnum是总车辆数，zuoweibuffer是单辆车座位数。
     maxzuoweibuffer=15
     maxbusnum=5
     zuoweibuffer=3   
@@ -64,7 +65,7 @@ def ReturnRequest(dl_ord):
     mintimesel=start_time.hour*18001
     mintimesat=start_time.hour*18001
 
-#运力简单判断,1800取值应为最不利情况调车+本次行程时间
+#运力简单判断，1800取值应为最不利情况调车+本次行程时间
     for raw in results:
         start_time_e=raw [4]      
         second_e=raw [3]

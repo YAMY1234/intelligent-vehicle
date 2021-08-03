@@ -6,7 +6,7 @@ import string
 import datetime
 import random
 
-def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id, tickets):
+def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id, tickets, time_count):
     oId = ticket['correspondOrderId']
     #u_id = []
     #for o in oId:
@@ -58,7 +58,7 @@ def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_in
         # task['travelId'] = 'XC07550' + '{0:%Y%m%d%H%M}'.format(datetime.datetime.now())[2:] + "".join(random.choices(string.digits, k=4))
         # 行程号生成代码
         task['travelId'] = 'XC07550' + '{0:%Y%m%d%H%M%S}'.format(datetime.datetime.now())[2:] + "".join(
-            random.choices(string.digits, k=3))
+            str(time_count).zfill(3))
         #task['u_ids'] = u_id[flag: flag+task['itNumber']]
         tasks[str(task['travelId'])] = task
         flag += task['itNumber']

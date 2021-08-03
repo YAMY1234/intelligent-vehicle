@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request
 from messageloader import *
 import json
-#from  ticket import *
+# from  ticket import *
 from cancel_ticket import *
 from fakedata import *
 from dataformat import *
@@ -18,6 +18,7 @@ import itertools
 import pickle
 import pandas as pd
 import openpyxl
+
 '''
 CAR_INFO_node
   "14": {
@@ -32,14 +33,15 @@ CAR_INFO_node
   },
 '''
 
-
-
 car_seat_info = make_car_seat_info()
 all_arranges = []
 
-station_id = ['1001', '1002', '1003', '1004', '1005', '1006', '1007', '1008', '1009', '1010', '1011', '1012', '1101', '1102', '1103', '1104', '1105', \
-    '1106', '1107', '1108', '1109', '1110', '1111', '1112', '1113', '1114', '1115', '1116', '1201', '1202', '1203', '1204', '1205', '1206', \
-    '1207', '1208', '1209', '1210', '1211', '1212', '1301', '1302', '1303', '1304', '1305', '1306', '1307', '1308', '1309', '1310', '1311']
+station_id = ['1001', '1002', '1003', '1004', '1005', '1006', '1007', '1008', '1009', '1010', '1011', '1012', '1101',
+              '1102', '1103', '1104', '1105', \
+              '1106', '1107', '1108', '1109', '1110', '1111', '1112', '1113', '1114', '1115', '1116', '1201', '1202',
+              '1203', '1204', '1205', '1206', \
+              '1207', '1208', '1209', '1210', '1211', '1212', '1301', '1302', '1303', '1304', '1305', '1306', '1307',
+              '1308', '1309', '1310', '1311']
 
 lon_scale = [121.32345, 121.227864]
 lat_scale = [31.390933, 31.286396]
@@ -50,6 +52,10 @@ tickets_buffer = dict()
 app_car_info, app_city_info, app_platform_info, road_info = dataloader('data/data').load_all_info()
 car_info = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).makefakecarpos()
 car_group_data = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).car_group_data()
+
+
+global time_count
+
 
 with open('data/app_platform_info.pkl', 'rb') as f:
     app_platform_info = pickle.load(f)
@@ -64,37 +70,43 @@ with open('data/car_group_data.pkl', 'rb') as f:
     car_group_data = pickle.load(f)
 f.close()
 
-
 print(car_info)
 print(car_group_data)
 init_group_car(car_group_data)
-#print(road_info)
+# print(road_info)
 print(car_group_data)
 print(car_info)
 
+
 ############################### 日志编写函数  ########################
-def log_writer(route,info,res):
+def log_writer(route, info, res):
     try:
         f = "data/log.txt"
-        with open(f, encoding='utf-8',mode='a') as file:  # 只需要将之前的”w"改为“a"即可，代表追加内容
+        with open(f, encoding='utf-8', mode='a') as file:  # 只需要将之前的”w"改为“a"即可，代表追加内容
             try:
                 stamp = int(time.time())
-                log="################################################################"
-                log=log+time.strftime("%Y-%m-%d %H:%M", time.localtime(stamp))+"\n"+"请求路由:\n"+route+"\n"+"请求信息内容:\n"+str(info)+"\n返回信息内容:\n"+str(res)+"\n\n"
-                log+="----------当前车辆状态：\n CAR_GROUP_DATA:\n"+str(car_group_data)+"\nCAR_INO\n"+str(car_info)
+                log = "################################################################"
+                log = log + time.strftime("%Y-%m-%d %H:%M",
+                                          time.localtime(stamp)) + "\n" + "请求路由:\n" + route + "\n" + "请求信息内容:\n" + str(
+                    info) + "\n返回信息内容:\n" + str(res) + "\n\n"
+                log += "----------当前车辆状态：\n CAR_GROUP_DATA:\n" + str(car_group_data) + "\nCAR_INO\n" + str(car_info)
                 file.write("\n\n")
                 file.write(log)
                 file.close()
                 return "ok"
             except:
-                file.write("!!!!!!!!!!!!!!\n\n"+"LOG INFO PROBLEM\n\n")
+                file.write("!!!!!!!!!!!!!!\n\n" + "LOG INFO PROBLEM\n\n")
                 return "NOT OK"
     except:
         print("LOG OPEN PROBLEM!!!!")
         return "NOT OK"
 
 
+<<<<<<< HEAD
 ## TODO 
+=======
+
+>>>>>>> f88e137a9c71d114c4bf5057f3b39f7f8b42441c
 ## 1 将车辆信息和站点绑定
 ## 2 分配车辆时考虑车辆的位置
 ## 3 得到车辆的行驶轨迹
@@ -102,16 +114,18 @@ def log_writer(route,info,res):
 
 app = Flask(__name__)
 
-#建立一个测试函数
-@app.route('/print_roadinfo',methods=['GET','POST'])
+
+# 建立一个测试函数
+@app.route('/print_roadinfo', methods=['GET', 'POST'])
 def print_roadinfo():
     df_index = pd.DataFrame.from_dict(road_info, orient='index')
     df_index.to_excel("data/road_info.xlsx")
-    log_writer("print_roadinfo","null","null")
+    log_writer("print_roadinfo", "null", "null")
     return json.dumps({"status": 1, "suggust": 'ok'})
 
+
 # 路网信息更新系统接口
-@app.route('/info_update',methods=['GET', 'POST','DELECT'])
+@app.route('/info_update', methods=['GET', 'POST', 'DELECT'])
 def info_update():
     if request.method == 'POST':
         try:
@@ -125,6 +139,8 @@ def info_update():
             global app_platform_info
             app_platform_info = app_platform_info1
             print(road_info)
+            global time_count
+            time_count = 0
 
             with open('data/app_platform_info.pkl', 'wb') as f:
                 pickle.dump(app_platform_info, f, pickle.HIGHEST_PROTOCOL)
@@ -132,79 +148,86 @@ def info_update():
             with open('data/road_info.pkl', 'wb') as f:
                 pickle.dump(road_info, f, pickle.HIGHEST_PROTOCOL)
             f.close()
-            log_writer("info_update",request.json,json.dumps({"status": 1, "suggust": ''}))
+            log_writer("info_update", request.json, json.dumps({"status": 1, "suggust": ''}))
             return json.dumps({"status": 1, "suggust": ''})
         except:
+            log_writer("info_update", request.json, json.dumps({"status": 0, "suggust": ''}))
             return json.dumps({"status": 0, "suggust": ''})
 
 
-# 新增算法系统接口													
-# 接口地址							http://47.111.139.187:5000/algorithm						
-# 返回格式							Json数组						
-# 请求方式							基于FLASK框架；请求方式：POST						
-# 输入参数	参数名		参数含义		字段名		数据类型	数据含义		实例(备注)			
-# 	df_1(orderData)		订单表数据		o_id	oId	str	订单唯一表示ID					
-# 					from_p_id	fromId	int(str)	出发站ID					
-# 					to_p_id	toId	int(str)	到达站ID					
-# 					start_time	startTime	datetime	出发时刻					
-# 					ticket_number	ticketNumber	int	车票数量					
-# 						orderStatus	int	订单状态		1为提前预约成功的，0为其他订单			
-# 					order_time	orderTime	datetime	下单时间					
-# 					set_time	setTime	int	设置时间阈值					
-# 输出参数	status		状态参数		status	status	int	状态参数		1：有输入数据但都有车，0：无输入数据，2：有输入数据部分有车；3：有输入数据全部无车			
-# 	task		新发布的调度信息表数据										
-# 					it_number	itNumber	int	乘车总人数					
-# 					car_id	carId	int(str)	车辆ID					
-# 					from_p_id	fromId	int(str)	起始站点ID					
-# 					from_order_name	fromName	str	起始站点名称					
-# 					to_p_id 	toId	int(str)	目的站点ID					
-# 					to_order_name	toName	str	目的站点名称					
-# 					park_id	parkId	int(str)	中间停站站点ID					
-# 					park_name	parkName	str	中间停站站点名称					
-# 					start_time	startTime	str	行程开始时间					
-# 					correspond_order_id	correspondOrderId	str	调度任务对应的订单编号					
-# 					correspond_order_number	correspondNumber	str	每个订单对应上车人数		如：“101:3,102:4”表示订单号为101的有3人上车，订单号为102的有4人上车			
-# 					travel_id	travelId	str	调度命令ID					
-# 					driver_id	driverId	int(str)	司机ID					
-# 					driver_content	driverContent	str	司机提示信息					
-# 					all_travel_plat	travelPlat	str	车辆行驶路径列表					
-# 					expected_time	expectedTime	int	全程预计时长		单位秒			
-# 					arrive_time	arriveTime	str	预计到站时间					
-# 					distance	distance	int	车辆预计行驶距离					
-# 					modify_id	modifyOrderId	str	是否修改命令		命令链接到要修改的travel_id			
-# 					warning	warning	str	警告		若OD两地之间不连接，提示“目的地错误，两地之间没有通路”			
+# 新增算法系统接口
+# 接口地址							http://47.111.139.187:5000/algorithm
+# 返回格式							Json数组
+# 请求方式							基于FLASK框架；请求方式：POST
+# 输入参数	参数名		参数含义		字段名		数据类型	数据含义		实例(备注)
+# 	df_1(orderData)		订单表数据		o_id	oId	str	订单唯一表示ID
+# 					from_p_id	fromId	int(str)	出发站ID
+# 					to_p_id	toId	int(str)	到达站ID
+# 					start_time	startTime	datetime	出发时刻
+# 					ticket_number	ticketNumber	int	车票数量
+# 						orderStatus	int	订单状态		1为提前预约成功的，0为其他订单
+# 					order_time	orderTime	datetime	下单时间
+# 					set_time	setTime	int	设置时间阈值
+# 输出参数	status		状态参数		status	status	int	状态参数		1：有输入数据但都有车，0：无输入数据，2：有输入数据部分有车；3：有输入数据全部无车
+# 	task		新发布的调度信息表数据
+# 					it_number	itNumber	int	乘车总人数
+# 					car_id	carId	int(str)	车辆ID
+# 					from_p_id	fromId	int(str)	起始站点ID
+# 					from_order_name	fromName	str	起始站点名称
+# 					to_p_id 	toId	int(str)	目的站点ID
+# 					to_order_name	toName	str	目的站点名称
+# 					park_id	parkId	int(str)	中间停站站点ID
+# 					park_name	parkName	str	中间停站站点名称
+# 					start_time	startTime	str	行程开始时间
+# 					correspond_order_id	correspondOrderId	str	调度任务对应的订单编号
+# 					correspond_order_number	correspondNumber	str	每个订单对应上车人数		如：“101:3,102:4”表示订单号为101的有3人上车，订单号为102的有4人上车
+# 					travel_id	travelId	str	调度命令ID
+# 					driver_id	driverId	int(str)	司机ID
+# 					driver_content	driverContent	str	司机提示信息
+# 					all_travel_plat	travelPlat	str	车辆行驶路径列表
+# 					expected_time	expectedTime	int	全程预计时长		单位秒
+# 					arrive_time	arriveTime	str	预计到站时间
+# 					distance	distance	int	车辆预计行驶距离
+# 					modify_id	modifyOrderId	str	是否修改命令		命令链接到要修改的travel_id
+# 					warning	warning	str	警告		若OD两地之间不连接，提示“目的地错误，两地之间没有通路”
 
-@app.route('/algorithm',methods=['GET', 'POST','DELECT'])
+@app.route('/algorithm', methods=['GET', 'POST', 'DELECT'])
 def get_name():
     if request.method == 'POST':
-        #try:
+        # try:
+        global time_count
         print(car_group_data)
         print(car_info)
         tickets_json = request.json
+
         print(request.json)
         tickets = dict()
-        for num,ticket in enumerate(tickets_json):
+        for num, ticket in enumerate(tickets_json):
             tickets[ticket["oId"]] = ticket
         tasks = dict()
         status = []
         new_tickets = merge_to_newtickets(tickets)
         print(new_tickets)
+        counter=0
         for name in new_tickets.keys():
             ticket = new_tickets[name]
             start_pos = ticket['fromId']
             cars, seat = get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_group_data)
             print(cars, seat, ticket['ticketNumber'])
-            if cars:
+            if cars and counter<len(cars):
+                counter += 1
                 if len(tasks) == 0:
                     begin_id = len(tasks_all)
                 else:
                     begin_id = len(tasks_all) + len(tasks)
                 print(ticket)
-                tasks = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id, tickets)
+                tasks = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id,
+                                     tickets,time_count)
+                time_count+=1
                 for i in range(len(cars)):
                     status.append(1)
             else:
-                #return 'car is not enough'
+                # return 'car is not enough'
                 status.append(3)
             car_info_update(cars, car_info)
 
@@ -214,34 +237,33 @@ def get_name():
         final_task['task'] = []
         final_task['line'] = []
         for num, sta in enumerate(status):
-            final_task['status'] = sta
             if sta == 3:
-                final_info = final_task
+                if 1 not in status:#如果说有车可以派车那就不用管了
+                    final_task['status'] = 3
             else:
-                # final_task['task'] = [tasks[list(tasks.keys())[flag]]]
-                final_task['task'].append([tasks[list(tasks.keys())[flag]]])
-                # final_info.append(final_task)
-                flag+=1
-        final_info=final_task
+                final_task['status'] = 1
+                final_task['task'].append(tasks[list(tasks.keys())[flag]])
+                flag += 1
+        final_info = final_task
         add_new_task_to_all(tasks, tasks_all)
-        result = json.dumps(final_info,ensure_ascii=False).encode('utf8')
-        log_writer("/algorithm", request.json , result)
+        result = json.dumps(final_info, ensure_ascii=False).encode('utf8')
+        log_writer("/algorithm", request.json, result)
         return result
 
-# 车辆信息更新系统接口								
-# 接口地址			http://47.111.139.187:5000/carinfo_update					
-# 返回格式			Json					
-# 请求方式			基于FLASK框架；请求方式：POST					
-# 输入参数	字段名		数据类型	数据含义	实例(备注)			
-# 	c_id	carId	int(str)	车辆ID	只传c_status=1的			
-# 	car_seat_number	carSeatNumber	int	车辆座位数				
-# 	car_type	carType	int	车辆类型				
-# 	  c_code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                	cityType	int	城市类型	根据大数据要求传，传编码为城市的			
-# 		carOperationStatus	int	车辆启用状态	1禁用，0启用			
-# 输出参数	status	status	int 	更新状态参数	1：更新成功；0：更新失败			
 
-@app.route('/carinfo_update',methods=['GET', 'POST','DELECT'])
+# 车辆信息更新系统接口
+# 接口地址			http://47.111.139.187:5000/carinfo_update
+# 返回格式			Json
+# 请求方式			基于FLASK框架；请求方式：POST
+# 输入参数	字段名		数据类型	数据含义	实例(备注)
+# 	c_id	carId	int(str)	车辆ID	只传c_status=1的
+# 	car_seat_number	carSeatNumber	int	车辆座位数
+# 	car_type	carType	int	车辆类型
+# 	  c_code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                	cityType	int	城市类型	根据大数据要求传，传编码为城市的
+# 		carOperationStatus	int	车辆启用状态	1禁用，0启用
+# 输出参数	status	status	int 	更新状态参数	1：更新成功；0：更新失败
 
+@app.route('/carinfo_update', methods=['GET', 'POST', 'DELECT'])
 def carinfo_update():
     if request.method == 'POST':
         try:
@@ -258,7 +280,7 @@ def carinfo_update():
                 temp_car_info['seat'] = car['carSeatNumber'] - 1
                 temp_car_info['carType'] = car['carType']
                 temp_car_info['carOperatonStatus'] = car['carOperatonStatus']
-                #temp_car_info['driverId'] = car['driverId']
+                # temp_car_info['driverId'] = car['driverId']
                 car_info[car['carId']] = temp_car_info
                 init_group_car(car_group_data)
                 print(car_info)
@@ -268,25 +290,26 @@ def carinfo_update():
             log_writer("/carinfo_update", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
         except:
+            log_writer("/carinfo_update", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
 
-# 车辆状态更新系统接口							
-# 接口地址		http://47.111.139.187:5000/carStatusUp					
-# 返回格式		Json					
-# 请求方式		基于FLASK框架；请求方式：POST					
+
+# 车辆状态更新系统接口
+# 接口地址		http://47.111.139.187:5000/carStatusUp
+# 返回格式		Json
+# 请求方式		基于FLASK框架；请求方式：POST
 # "输入参数
-# （数组）"		数据类型	数据含义	实例(备注)			
-# 	cityType	str	城市类型	根据大数据要求传，传编码为城市的			
-# 	carId	str	车辆ID				
-# 	carType	int	车辆类型				
-# 	carSeatNumber	int	车辆座位数				
-# 	carLoc	str	车辆GPS数据	,分隔经纬度，不可用时为空			
-# 	carStatus	int	车辆状态	0不可用，1可用			
-# 	driverid	str	司机id	不可用时为空			
-# 输出参数	status	int 	更新状态参数	1：更新成功；0：更新失败			
+# （数组）"		数据类型	数据含义	实例(备注)
+# 	cityType	str	城市类型	根据大数据要求传，传编码为城市的
+# 	carId	str	车辆ID
+# 	carType	int	车辆类型
+# 	carSeatNumber	int	车辆座位数
+# 	carLoc	str	车辆GPS数据	,分隔经纬度，不可用时为空
+# 	carStatus	int	车辆状态	0不可用，1可用
+# 	driverid	str	司机id	不可用时为空
+# 输出参数	status	int 	更新状态参数	1：更新成功；0：更新失败
 
-@app.route('/carStatusup',methods=['GET', 'POST','DELECT'])
-
+@app.route('/carStatusup', methods=['GET', 'POST', 'DELECT'])
 def carStatusup():
     if request.method == 'POST':
         try:
@@ -297,7 +320,7 @@ def carStatusup():
                 car_id = car['carId']
                 if car_id not in car_info.keys():
                     return json.dumps({"status": 0})
-                car_info['busy']=0
+                car_info['busy'] = 0
                 temp_car_info = car_info[car_id]
                 temp_car_info['lng'] = car['carLoc'].split(',')[0]
                 temp_car_info['lat'] = car['carLoc'].split(',')[1]
@@ -330,8 +353,7 @@ def carStatusup():
             return json.dumps({"status": 0})
 
 
-@app.route('/carpos_update',methods=['GET', 'POST','DELECT'])
-
+@app.route('/carpos_update', methods=['GET', 'POST', 'DELECT'])
 def carpos_update():
     if request.method == 'POST':
         try:
@@ -355,7 +377,7 @@ def carpos_update():
             return json.dumps({"status": 0})
 
 
-@app.route('/test',methods=['GET', 'POST','DELECT'])
+@app.route('/test', methods=['GET', 'POST', 'DELECT'])
 def test():
     if request.method == 'POST':
         new_car_info = request.json
@@ -363,83 +385,85 @@ def test():
         print(car_group_data)
         print(car_info)
         print(tasks_all)
+        log_writer('/test', request.json, json.dumps({"status": 1}))
         return json.dumps({"status": 1})
 
 
-# 预约快速响应算法系统接口									
-# 接口地址			http://47.111.139.187:5000/ReturnRequest						
-# 返回格式			Json数组						
-# 请求方式			基于FLASK框架；请求方式：POST						
-# 输入参数	字段名		数据类型	数据含义		实例(备注)			
-# 	o_id	oId	str	订单唯一表示ID					
-# 	from_p_id	fromId	int(str)	出发站ID					
-# 	to_p_id	toId	int(str)	到达站ID					
-# 	start_time	startTime	datetime	出发时刻					
-# 	ticket_number	ticketNumber	int	车票数量					
-# 输出参数	status	status	int	状态参数		201成功；301-305都为失败，原因都不同			
-# 	suggest	suggest	str	建议					
+# 预约快速响应算法系统接口
+# 接口地址			http://47.111.139.187:5000/ReturnRequest
+# 返回格式			Json数组
+# 请求方式			基于FLASK框架；请求方式：POST
+# 输入参数	字段名		数据类型	数据含义		实例(备注)
+# 	o_id	oId	str	订单唯一表示ID
+# 	from_p_id	fromId	int(str)	出发站ID
+# 	to_p_id	toId	int(str)	到达站ID
+# 	start_time	startTime	datetime	出发时刻
+# 	ticket_number	ticketNumber	int	车票数量
+# 输出参数	status	status	int	状态参数		201成功；301-305都为失败，原因都不同
+# 	suggest	suggest	str	建议
 
-@app.route('/algorithmD',methods=['GET', 'POST','DELECT'])
-
+@app.route('/algorithmD', methods=['GET', 'POST', 'DELECT'])
 def ReturnRequest1():
     if request.method == 'POST':
         print(request.json)
         tasks = request.json
         task = ReturnRequest(tasks)
+        log_writer('/algorithmD',request.json,task)
         return task
 
-# 司机信息更新系统接口									
-# 接口地址			http://47.111.139.187:5000/driverinfo_update						
-# 返回格式			Json						
-# 请求方式			基于FLASK框架；请求方式：POST						
-# 输入参数	字段名		数据类型	数据含义		实例(备注)			
-# 	cityType	cityType	int	城市类型		根据大数据要求传			
-# 	u_id	userId	int（str）	用户ID		只传司机信息			
-# 	u_name	userName	str	用户名					
-# 输出参数	status	status	int 	更新状态参数		1：更新成功；0：更新失败			
 
-@app.route('/driverinfo_update',methods=['GET', 'POST','DELECT'])
+# 司机信息更新系统接口
+# 接口地址			http://47.111.139.187:5000/driverinfo_update
+# 返回格式			Json
+# 请求方式			基于FLASK框架；请求方式：POST
+# 输入参数	字段名		数据类型	数据含义		实例(备注)
+# 	cityType	cityType	int	城市类型		根据大数据要求传
+# 	u_id	userId	int（str）	用户ID		只传司机信息
+# 	u_name	userName	str	用户名
+# 输出参数	status	status	int 	更新状态参数		1：更新成功；0：更新失败
 
+@app.route('/driverinfo_update', methods=['GET', 'POST', 'DELECT'])
 def driverinfo_update():
     if request.method == 'POST':
         print(request.json)
         driver_info = request.json
+    log_writer('/driverinfo_update', request.json, json.dumps([1]))
     return json.dumps([1])
 
-# 新增行程座位分配系统接口									
-# 接口地址			http://47.111.139.187:5000/seat_allocation						
-# 返回格式			Json						
-# 请求方式			基于FLASK框架；请求方式：POST						
-# 输入参数	字段名		数据类型	数据含义		实例(备注)			
-# 	travel_id	travelId	str	调度命令ID					
-# 	modifyOrderId	modifyOrderId	str		对应的旧的调度命令ID	可以为""			
-# 	car_id	carId	int (str)	车辆ID					
-# 	correspond_order_id	correspondOrderId	str	调度任务对应的订单编号					
-# 	correspond_order_number	correspondNumber	str	每个订单对应的上车人数		“101:2,102:3”			
+
+# 新增行程座位分配系统接口
+# 接口地址			http://47.111.139.187:5000/seat_allocation
+# 返回格式			Json
+# 请求方式			基于FLASK框架；请求方式：POST
+# 输入参数	字段名		数据类型	数据含义		实例(备注)
+# 	travel_id	travelId	str	调度命令ID
+# 	modifyOrderId	modifyOrderId	str		对应的旧的调度命令ID	可以为""
+# 	car_id	carId	int (str)	车辆ID
+# 	correspond_order_id	correspondOrderId	str	调度任务对应的订单编号
+# 	correspond_order_number	correspondNumber	str	每个订单对应的上车人数		“101:2,102:3”
 # 	order_u_id	orderUserId	jsonarr	各订单包含的所有乘客的uid		"[{""orderId"":""订单id"", ""userId"":""621,622,623""}，
 # {""orderId"":""订单id"",""userId"":""所有用户id""}]
-# "			
+# "
 # 	user_preference	userPreference	jsonarr	订单包含的乘客及其座位偏好信息		"[{""userId"":""621"",""seatPreference"":""1，3""}，
 # {""userId"":""乘客编号"",""seatPreference"":""第一组，第二组""}]
-# "			
-# 	carType	carType	int	是否包车		1：包车。0不包车			
-# 输出参数	car_id	carId	int(str)	车辆ID					
+# "
+# 	carType	carType	int	是否包车		1：包车。0不包车
+# 输出参数	car_id	carId	int(str)	车辆ID
 # 	correspond_seat_id	correspondSeatId	jsonarr	每个订单中各乘客与对应的座位号		"[
 # {""orderId"":""订单id"",
 # ""seatId"":[{""userId"":""621"",""seat"":""A1""}，
 # {""userId"":""乘客编号"",""seat"":""座位号""}]
 # }
 # ]
-# "			
-@app.route('/seat_allocation',methods=['GET', 'POST','DELECT'])
-
+# "
+@app.route('/seat_allocation', methods=['GET', 'POST', 'DELECT'])
 def seat_allocation():
     if request.method == 'POST':
         tickets_json = request.json
         print(tickets_json)
         tickets = dict()
         arranges = []
-        for num,ticket in enumerate(tickets_json):
+        for num, ticket in enumerate(tickets_json):
             tickets[str(ticket["travelId"])] = ticket
         for name in tickets.keys():
             task = tasks_all[name]
@@ -451,36 +475,35 @@ def seat_allocation():
     return json.dumps(arranges)
 
 
-# 加入行程算法系统接口												
-# 接口地址						http://47.111.139.187:5000/algorithmA						
-# 返回格式						Json数组						
-# 请求方式						基于FLASK框架；请求方式：POST						
-# 输入参数	参数名		参数含义			数据类型	数据含义		实例(备注)			
-# 	orderData		新增订单数据		oId	str	订单唯一表示ID					
-# 					fromId	str	出发站ID					
-# 					toId	str	到达站ID					
-# 					startTime	datetime	出发时刻					
-# 					ticketNumber	int	车票数量					
-# 					orderUserId	str	订单包含的所有乘客id		如：“621，622”			
-# 					userPreference	jsonarr	订单包含的乘客及其座位偏好信息		如[{"userId":"621","seatPreference":"1，3"}，{"userId":"乘客编号","seatPreference":"第一组，第二组"}]			
-# 	travelId					str	行程id					
+# 加入行程算法系统接口
+# 接口地址						http://47.111.139.187:5000/algorithmA
+# 返回格式						Json数组
+# 请求方式						基于FLASK框架；请求方式：POST
+# 输入参数	参数名		参数含义			数据类型	数据含义		实例(备注)
+# 	orderData		新增订单数据		oId	str	订单唯一表示ID
+# 					fromId	str	出发站ID
+# 					toId	str	到达站ID
+# 					startTime	datetime	出发时刻
+# 					ticketNumber	int	车票数量
+# 					orderUserId	str	订单包含的所有乘客id		如：“621，622”
+# 					userPreference	jsonarr	订单包含的乘客及其座位偏好信息		如[{"userId":"621","seatPreference":"1，3"}，{"userId":"乘客编号","seatPreference":"第一组，第二组"}]
+# 	travelId					str	行程id
 # 	correspondSeatId					jsonarr	每个订单中各乘客与对应的座位号		"如[{""userId"":""621"",""seat"":""A1""}，
 # {""userId"":""乘客编号"",""seat"":""座位号""}]
-# }]"			
-# 输出参数	status		状态参数		status	int	状态参数		1成功，0失败			
-# 	task		反馈指令		travelId	str	行程id					
-# 					itNumber	int	乘车总人数					
-# 					correspondNumber	str	每个订单对应上车人数		（增加了新加入订单信息）			
-# 					correspondSeatId	dict	每个订单中各乘客uid列表与对应的座位号列表		（增加了新加入订单信息）			
+# }]"
+# 输出参数	status		状态参数		status	int	状态参数		1成功，0失败
+# 	task		反馈指令		travelId	str	行程id
+# 					itNumber	int	乘车总人数
+# 					correspondNumber	str	每个订单对应上车人数		（增加了新加入订单信息）
+# 					correspondSeatId	dict	每个订单中各乘客uid列表与对应的座位号列表		（增加了新加入订单信息）
 
-@app.route('/algorithmA',methods=['GET', 'POST','DELECT'])
-
+@app.route('/algorithmA', methods=['GET', 'POST', 'DELECT'])
 def share_car():
     if request.method == 'POST':
         tickets = [request.json]
         print(request.json)
         tasks = dict()
-        #new_tickets = merge_to_newtickets(tickets)
+        # new_tickets = merge_to_newtickets(tickets)
         for ticket in tickets:
             start = ticket['fromId']
             if app_platform_info[start]['p_route_type'] == '2':
@@ -495,45 +518,45 @@ def share_car():
         log_writer("/algorithmA", request.json, json.dumps(return_info))
         return json.dumps(return_info)
 
-# 取消行程算法系统接口												
-# 接口地址						http://47.111.139.187:5000/algorithmC						
-# 返回格式						Json数组						
-# 请求方式						基于FLASK框架；请求方式：POST						
-# 输入参数	参数名		参数含义			数据类型	数据含义		实例(备注)			
-# 	orderData		删除订单数据		oId	str	订单唯一表示ID					
-# 					fromId	str	出发站ID					
-# 					toId	str	到达站ID					
-# 					startTime	datetime	出发时刻					
-# 					ticketNumber	str	车票数量		如："1/2"			
-# 					orderUserId	str	订单包含的删除乘客id		如：“621，622”			
-# 	travelId					str	行程id					
+
+# 取消行程算法系统接口
+# 接口地址						http://47.111.139.187:5000/algorithmC
+# 返回格式						Json数组
+# 请求方式						基于FLASK框架；请求方式：POST
+# 输入参数	参数名		参数含义			数据类型	数据含义		实例(备注)
+# 	orderData		删除订单数据		oId	str	订单唯一表示ID
+# 					fromId	str	出发站ID
+# 					toId	str	到达站ID
+# 					startTime	datetime	出发时刻
+# 					ticketNumber	str	车票数量		如："1/2"
+# 					orderUserId	str	订单包含的删除乘客id		如：“621，622”
+# 	travelId					str	行程id
 # 	correspondSeatId					jsonarr	每个订单中各乘客与对应的座位号		"如[{""userId"":""621"",""seat"":""A1""}，
 # {""userId"":""乘客编号"",""seat"":""座位号""}]
-# }]"			
-# 输出参数	status		状态参数			int	状态参数		1成功，0失败			
-# 	task		指定调度指令记录		travelId	str	行程id					
-# 					inNumber	int	乘车总人数					
-# 					carId	str	车辆ID					
-# 					fromId	str	起始站点ID					
-# 					fromName	str	起始站点名称					
-# 					toId	str	目的站点ID					
-# 					toName	str	目的站点名称					
-# 					parkId	str	中间停站站点ID					
-# 					parkName	str	中间停站站点名称					
-# 					startTime	str	行程开始时间					
-# 					correspondOrderId	str	调度任务对应的订单编号					
-# 					correspondNumber	str	每个订单对应上车人数		如：“101:3,102:4”表示订单号为101的有3人上车，订单号为102的有4人上车			
-# 					driverId	int	司机ID					
-# 					driverContent	str	司机提示信息					
-# 					travelPlat	str	车辆行驶路径列表					
-# 					expectedTime	int	全程预计时长					
-# 					distance	int	车辆预计行驶距离					
-# 					modifyOrderId	int	是否修改命令		命令链接到要修改的travel_id			
-# 					warning	str	警告		提示无车，有几人未上车			
-# 	correspondSeatId					jsonarr	每个订单中各乘客与对应的座位号		（删除取消预约乘客后）			
+# }]"
+# 输出参数	status		状态参数			int	状态参数		1成功，0失败
+# 	task		指定调度指令记录		travelId	str	行程id
+# 					inNumber	int	乘车总人数
+# 					carId	str	车辆ID
+# 					fromId	str	起始站点ID
+# 					fromName	str	起始站点名称
+# 					toId	str	目的站点ID
+# 					toName	str	目的站点名称
+# 					parkId	str	中间停站站点ID
+# 					parkName	str	中间停站站点名称
+# 					startTime	str	行程开始时间
+# 					correspondOrderId	str	调度任务对应的订单编号
+# 					correspondNumber	str	每个订单对应上车人数		如：“101:3,102:4”表示订单号为101的有3人上车，订单号为102的有4人上车
+# 					driverId	int	司机ID
+# 					driverContent	str	司机提示信息
+# 					travelPlat	str	车辆行驶路径列表
+# 					expectedTime	int	全程预计时长
+# 					distance	int	车辆预计行驶距离
+# 					modifyOrderId	int	是否修改命令		命令链接到要修改的travel_id
+# 					warning	str	警告		提示无车，有几人未上车
+# 	correspondSeatId					jsonarr	每个订单中各乘客与对应的座位号		（删除取消预约乘客后）
 
-@app.route('/algorithmC',methods=['GET', 'POST','DELECT'])
-        
+@app.route('/algorithmC', methods=['GET', 'POST', 'DELECT'])
 def delete_ticket():
     if request.method == 'POST':
         tickets = request.json
@@ -544,9 +567,9 @@ def delete_ticket():
             all_user = tciket['orderUserId'].split(',')
         task_user = dict()
         for user in all_user:
-            for x,arrange in enumerate(all_arranges):
+            for x, arrange in enumerate(all_arranges):
                 temp = []
-                for n,user_info in enumerate(arrange['correspondSeatId']):
+                for n, user_info in enumerate(arrange['correspondSeatId']):
                     if user == user_info['u_id']:
                         if arrange['carId'] not in task_user.keys():
                             task_user[arrange['carId']] = [user]
@@ -557,7 +580,7 @@ def delete_ticket():
                 remain_user = [all_arranges[x]['correspondSeatId'][i] for i in temp]
                 all_arranges[x]['correspondSeatId'] = remain_user
         print(task_user)
-        
+
         for carId in task_user.keys():
             for arrange in all_arranges:
                 if arrange['carId'] == carId:
@@ -571,26 +594,22 @@ def delete_ticket():
                         car_info[carId]['status'] = 0
                         del tasks_all[n]
                         break
-                #else:
-                    #for ticket in tickets:
-                        #for user in task_user[carId]:
-                            #if user in ticket['orderUserId'].split(','):
-                            #    task['correspondNumber'][ticket['oId']]-=1
-                            #    if task['correspondNumber'][ticket['oId']]<=0:
-                            #        del task['correspondNumber'][ticket['oId']]
-                            #    break
-            
+                # else:
+                # for ticket in tickets:
+                # for user in task_user[carId]:
+                # if user in ticket['orderUserId'].split(','):
+                #    task['correspondNumber'][ticket['oId']]-=1
+                #    if task['correspondNumber'][ticket['oId']]<=0:
+                #        del task['correspondNumber'][ticket['oId']]
+                #    break
+
             tasks_all[n] = task
             return_info.append({'status': status, 'task': task, 'correspondSeatId': correspondSeatId})
         log_writer("/algorithmC", request.json, json.dumps(return_info))
         return json.dumps(return_info)
 
 
-            
-
-
-@app.route('/marshalling',methods=['GET', 'POST','DELECT'])
-
+@app.route('/marshalling', methods=['GET', 'POST', 'DELECT'])
 def marshalling():
     if request.method == 'POST':
         print(request.json)
@@ -621,40 +640,40 @@ def marshalling():
         log_writer("/marshalling", request.json, car_return)
         return car_return
 
-# 包车算法系统接口									
-# 接口地址			http://47.111.139.187:5000/CharterCar						
-# 返回格式			Json数组						
-# 请求方式			基于FLASK框架；请求方式：POST						
-# 输入参数	字段名		数据类型	数据含义		实例(备注)			
-# 	o_id	oId	str	订单唯一表示ID					
-# 	from_p_id	fromId	str	出发站ID					
-# 	to_p_id	toId	str	到达站ID					
-# 	start_time	startTime	datetime	出发时刻					
-# 	chartered_bus	charteredBus	str	包车类型					
-# 	it_number	ticketNumber	str	车票数量					
-# 输出参数	code	status	int	状态参数		201成功；301为失败			
-# 	message	suggest	str	建议					
-# 	task（数组）	itNumber	int	包车订单信息（失败时无此字段）					
-# 		carId	str						
-# 		fromId	str						
-# 		fromName	str						
-# 		toId	str						
-# 		toName	str						
-# 		parkId	str						
-# 		parkName	str						
-# 		startTime	str						
-# 		correspondOrderId	str						
-# 		correspondNumber	str						
-# 		travelId	str						
-# 		driverId	str						
-# 		driverContent	str						
-# 		travelPlat	str						
-# 		expectedTime	int						
-# 		arriveTime	str						
-# 		distance	int						
 
-@app.route('/CharterCar',methods=['GET', 'POST','DELECT'])     
+# 包车算法系统接口
+# 接口地址			http://47.111.139.187:5000/CharterCar
+# 返回格式			Json数组
+# 请求方式			基于FLASK框架；请求方式：POST
+# 输入参数	字段名		数据类型	数据含义		实例(备注)
+# 	o_id	oId	str	订单唯一表示ID
+# 	from_p_id	fromId	str	出发站ID
+# 	to_p_id	toId	str	到达站ID
+# 	start_time	startTime	datetime	出发时刻
+# 	chartered_bus	charteredBus	str	包车类型
+# 	it_number	ticketNumber	str	车票数量
+# 输出参数	code	status	int	状态参数		201成功；301为失败
+# 	message	suggest	str	建议
+# 	task（数组）	itNumber	int	包车订单信息（失败时无此字段）
+# 		carId	str
+# 		fromId	str
+# 		fromName	str
+# 		toId	str
+# 		toName	str
+# 		parkId	str
+# 		parkName	str
+# 		startTime	str
+# 		correspondOrderId	str
+# 		correspondNumber	str
+# 		travelId	str
+# 		driverId	str
+# 		driverContent	str
+# 		travelPlat	str
+# 		expectedTime	int
+# 		arriveTime	str
+# 		distance	int
 
+@app.route('/CharterCar', methods=['GET', 'POST', 'DELECT'])
 def chartercar():
     if request.method == 'POST':
         print(request.json)
@@ -667,7 +686,7 @@ def chartercar():
             ticket['correspondOrderId'] = [ticket['oId']]
             tickets[ticket['oId']] = ticket
         status = []
-        #print(tickets)
+        # print(tickets)
         for oId in tickets.keys():
             ticket = tickets[oId]
             print(ticket)
@@ -679,10 +698,11 @@ def chartercar():
                 else:
                     begin_id = len(tasks_all) + len(tasks)
                     print(ticket)
-                tasks = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id, tickets)
+                tasks = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id,
+                                     tickets,time_count)
                 status.append(201)
             else:
-                #return 'car is not enough'
+                # return 'car is not enough'
                 status.append(301)
             car_info_update(cars, car_info)
         final_info = []
@@ -693,35 +713,35 @@ def chartercar():
                 final_task['code'] = 301
                 final_task['task'] = []
                 final_task['message'] = []
-                final_info.append(final_task)  
+                final_info.append(final_task)
             else:
                 final_task = dict()
                 final_task['code'] = 201
                 final_task['task'] = tasks[list(tasks.keys())[flag]]
-                final_task['message'] =[]
+                final_task['message'] = []
                 final_info.append(final_task)
-                flag+=1
+                flag += 1
         add_new_task_to_all(tasks, tasks_all)
         print(tasks_all)
         log_writer("/CharterCar", request.json, json.dumps(final_info))
         return json.dumps(final_info)
 
-# 包车算法系统接口									
-# 接口地址			http://47.111.139.187:5000/CancelCharterCar						
-# 返回格式			Json数组						
-# 请求方式			基于FLASK框架；请求方式：POST						
-# 输入参数	字段名		数据类型	数据含义		实例(备注)			
-# 	o_id	oId	str	订单唯一表示ID					
-# 	from_p_id	fromId	str	出发站ID					
-# 	to_p_id	toId	str	到达站ID					
-# 	start_time	startTime	datetime	出发时刻					
-# 	chartered_bus	charteredBusNum	str	车号		-1为不包车，其他为包车单的车号			
-# 	it_number	ticketNumber	str	车票数量					
-# 输出参数	code	status	int	状态参数		201成功；301为失败			
-# 	message	suggest	str	建议					
 
-@app.route('/CancelCharterCar',methods=['GET', 'POST','DELECT'])
+# 包车算法系统接口
+# 接口地址			http://47.111.139.187:5000/CancelCharterCar
+# 返回格式			Json数组
+# 请求方式			基于FLASK框架；请求方式：POST
+# 输入参数	字段名		数据类型	数据含义		实例(备注)
+# 	o_id	oId	str	订单唯一表示ID
+# 	from_p_id	fromId	str	出发站ID
+# 	to_p_id	toId	str	到达站ID
+# 	start_time	startTime	datetime	出发时刻
+# 	chartered_bus	charteredBusNum	str	车号		-1为不包车，其他为包车单的车号
+# 	it_number	ticketNumber	str	车票数量
+# 输出参数	code	status	int	状态参数		201成功；301为失败
+# 	message	suggest	str	建议
 
+@app.route('/CancelCharterCar', methods=['GET', 'POST', 'DELECT'])
 def CancelCharterCar():
     if request.method == 'POST':
         print(request.json)
@@ -765,39 +785,39 @@ def CancelCharterCar():
         log_writer("/CharterCar", request.json, return_info)
         return json.dumps(return_info)
 
-# 包车行程座位分配系统接口(在接口表现上和新增行程座位分配没有区别，是否输入参数加个type区分？)									
-# 接口地址			http://47.111.139.187:5000/seat_allocation_for_charetercar						
-# 返回格式			Json						
-# 请求方式			基于FLASK框架；请求方式：POST						
-# 输入参数	字段名		数据类型	数据含义		实例(备注)			
-# 	travel_id	travelId	str	调度命令ID					
-# 	car_id	carId	int (str)	车辆ID					
-# 	correspond_order_id	correspondOrderId	str	调度任务对应的订单编号					
-# 	correspond_order_number	correspondNumber	str	:每个订单对应的上车人数		“101:2,102:3”			
+
+# 包车行程座位分配系统接口(在接口表现上和新增行程座位分配没有区别，是否输入参数加个type区分？)
+# 接口地址			http://47.111.139.187:5000/seat_allocation_for_charetercar
+# 返回格式			Json
+# 请求方式			基于FLASK框架；请求方式：POST
+# 输入参数	字段名		数据类型	数据含义		实例(备注)
+# 	travel_id	travelId	str	调度命令ID
+# 	car_id	carId	int (str)	车辆ID
+# 	correspond_order_id	correspondOrderId	str	调度任务对应的订单编号
+# 	correspond_order_number	correspondNumber	str	:每个订单对应的上车人数		“101:2,102:3”
 # 	order_u_id	orderUserId	jsonarr	各订单包含的所有乘客的uid		"[{""orderId"":""订单id"", ""userId"":""621,622,623""}，
 # {""orderId"":""订单id"",""userId"":""所有用户id""}]
-# "			
+# "
 # 	user_preference	userPreference	jsonarr	订单包含的乘客及其座位偏好信息		"[{""u_id"":""621"",""seat_preference"":""1，3""}，
 # {""u_id"":""乘客编号"",""seat_preference"":""第一组，第二组""}]
-# "			
-# 输出参数	carId	carId	int (str)	车辆ID					
+# "
+# 输出参数	carId	carId	int (str)	车辆ID
 # 	correspond_seat_id	correspondSeatId	jsonarr	每个订单中各乘客与对应的座位号		"[
 # {""orderId"":""订单id"",
 # ""seatId"":[{""u_id"":""621"",""seat"":""A1""}，
 # {""u_id"":""乘客编号"",""seat"":""座位号""}]
 # }
 # ]
-# "			
+# "
 
-@app.route('/seat_allocation_for_charetercar',methods=['GET', 'POST','DELECT'])
-
+@app.route('/seat_allocation_for_charetercar', methods=['GET', 'POST', 'DELECT'])
 def seat_allocation_for_charetercar():
     if request.method == 'POST':
         print(request.json)
         tickets_json = request.json
         tickets = dict()
         arranges = []
-        for num,ticket in enumerate(tickets_json):
+        for num, ticket in enumerate(tickets_json):
             tickets[ticket["travelId"]] = ticket
         for name in tickets.keys():
             task = tasks_all[name]
@@ -807,24 +827,24 @@ def seat_allocation_for_charetercar():
     log_writer("/seat_allocation_for_charetercar", request.json, json.dumps(arranges))
     return json.dumps(arranges)
 
-# 路径规划与距离计算系统接口 
-# 接口地址		http://47.111.139.187:5000/path_planning						
-# 返回格式		Json						
-# 请求方式		基于FLASK框架；请求方式：POST						
-# 输入参数	字段名	数据类型	数据含义		实例(备注)			
-# 	fromId	str	起点站ID					
-# 	toId	str	终点站ID					
-# 	wayId	str	中间站ID		以;隔开			
-# 输出参数	status	int	状态参数		1成功，0失败			
-# 	travelPlat	str	路径站点编号信息					
-# 	distance	int	距离					
 
-@app.route('/path_planning',methods=['GET', 'POST','DELECT'])
+# 路径规划与距离计算系统接口
+# 接口地址		http://47.111.139.187:5000/path_planning
+# 返回格式		Json
+# 请求方式		基于FLASK框架；请求方式：POST
+# 输入参数	字段名	数据类型	数据含义		实例(备注)
+# 	fromId	str	起点站ID
+# 	toId	str	终点站ID
+# 	wayId	str	中间站ID		以;隔开
+# 输出参数	status	int	状态参数		1成功，0失败
+# 	travelPlat	str	路径站点编号信息
+# 	distance	int	距离
 
+@app.route('/path_planning', methods=['GET', 'POST', 'DELECT'])
 def path_planning():
     if request.method == 'POST':
         print(request.json)
-        #print(road_info)
+        # print(road_info)
         tasks = dict()
         message = [request.json]
         return_info = []
@@ -849,7 +869,7 @@ def path_planning():
                     dist = 0
                     for st1, st2 in zip(pre, back):
                         dist += road_info[st1][st2]['dist']
-                        #stations = road_info[st1][st2]['route']
+                        # stations = road_info[st1][st2]['route']
                     if dist < min_dist:
                         sta = stations
                         min_dist = dist
@@ -865,14 +885,23 @@ def path_planning():
         log_writer("/seat_allocation_for_charetercar", request.json, json.dumps(return_info))
         return json.dumps(return_info)
 
+
 '''
 新增接口
 去除掉car_info当中的信息同时进行同步
 '''
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     app.run(host='0.0.0.0', port=80)
     # try:
     #     app.run(host='0.0.0.0', port=80)
     # except:
     #     app.run(host='0.0.0.0', port=81)
+=======
+    time_count = 0
+    try:
+        app.run(host='0.0.0.0', port=80)
+    except:
+        app.run(host='0.0.0.0', port=83)
+>>>>>>> f88e137a9c71d114c4bf5057f3b39f7f8b42441c
