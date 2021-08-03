@@ -10,6 +10,7 @@ from process import *
 from arrange import *
 from task import *
 from share_car import *
+from CancelCharterCar import CancelCharterCar
 import requests
 import json
 from car_seat_info import *
@@ -402,10 +403,10 @@ def test():
 def ReturnRequest1():
     if request.method == 'POST':
         print(request.json)
-        tasks = request.json
-        task = ReturnRequest(tasks)
-        log_writer('/algorithmD',request.json,task)
-        return task
+        tasks_in = request.json
+        res = ReturnRequest(tasks_in)
+        log_writer('/algorithmD',request.json,res)
+        return res
 
 
 # 司机信息更新系统接口
@@ -559,8 +560,8 @@ def delete_ticket():
         print(request.json)
         return_info = []
         all_user = []
-        for tciket in tickets:
-            all_user = tciket['orderUserId'].split(',')
+        for ticket in tickets:
+            all_user = ticket['orderUserId'].split(',')
         task_user = dict()
         for user in all_user:
             for x, arrange in enumerate(all_arranges):
@@ -576,7 +577,6 @@ def delete_ticket():
                 remain_user = [all_arranges[x]['correspondSeatId'][i] for i in temp]
                 all_arranges[x]['correspondSeatId'] = remain_user
         print(task_user)
-
         for carId in task_user.keys():
             for arrange in all_arranges:
                 if arrange['carId'] == carId:
@@ -738,48 +738,58 @@ def chartercar():
 # 	message	suggest	str	建议
 
 @app.route('/CancelCharterCar', methods=['GET', 'POST', 'DELECT'])
-def CancelCharterCar():
-    if request.method == 'POST':
+def CancelCharterCar2():
+    if request.method=='POST':
         print(request.json)
-        tasks = dict()
-        message = [request.json]
-        tickets = dict()
-        for num, ticket_info in enumerate(message):
-            ticket = dict()
-            ticket['oId'] = ticket_info['oId']
-            ticket['fromId'] = ticket_info['oId']
-            ticket['toId'] = ticket_info['toId']
-            ticket['startTime'] = ticket_info['startTime']
-            ticket['charteredBusNum'] = ticket_info['charteredBusNum']
-            ticket['ticketNumber'] = ticket_info['ticketNumber']
-            tickets[num] = ticket
-        print(car_info)
+        res = CancelCharterCar(request.json)
+        log_writer('/CancelCharterCar', request.json, res)
+        return res
 
-        return_info = []
-        for Id in tickets.keys():
-            ticket = tickets[Id]
-            carId = ticket['charteredBusNum']
-            flag = 0
-            for task_id in tasks_all.keys():
-                task = tasks_all[task_id]
-                if carId != task['carId']:
-                    continue
-                else:
-                    del tasks_all[task_id]
-                    flag = 1
-                    car_info[carId]['status'] = 0
-                    return_message = dict()
-                    return_message['status'] = 201
-                    return_message['suggest'] = ''
-                    return_info = return_message
-                    break
-            if flag != 1:
-                return_message = dict()
-                return_message['status'] = 301
-                return_message['suggest'] = ''
-                return_info = return_message
-        log_writer("/CharterCar", request.json, return_info)
-        return json.dumps(return_info)
+
+
+
+# def CancelCharterCar():
+#     if request.method == 'POST':
+#         print(request.json)
+#         tasks = dict()
+#         message = [request.json]
+#         tickets = dict()
+#         for num, ticket_info in enumerate(message):
+#             ticket = dict()
+#             ticket['oId'] = ticket_info['oId']
+#             ticket['fromId'] = ticket_info['oId']
+#             ticket['toId'] = ticket_info['toId']
+#             ticket['startTime'] = ticket_info['startTime']
+#             ticket['charteredBusNum'] = ticket_info['charteredBusNum']
+#             ticket['ticketNumber'] = ticket_info['ticketNumber']
+#             tickets[num] = ticket
+#         print(car_info)
+#
+#         return_info = []
+#         for Id in tickets.keys():
+#             ticket = tickets[Id]
+#             carId = ticket['charteredBusNum']
+#             flag = 0
+#             for task_id in tasks_all.keys():
+#                 task = tasks_all[task_id]
+#                 if carId != task['carId']:
+#                     continue
+#                 else:
+#                     del tasks_all[task_id]
+#                     flag = 1
+#                     car_info[carId]['status'] = 0
+#                     return_message = dict()
+#                     return_message['status'] = 201
+#                     return_message['suggest'] = ''
+#                     return_info = return_message
+#                     break
+#             if flag != 1:
+#                 return_message = dict()
+#                 return_message['status'] = 301
+#                 return_message['suggest'] = ''
+#                 return_info = return_message
+#         log_writer("/CancelCharterCar", request.json, return_info)
+#         return json.dumps(return_info)
 
 
 # 包车行程座位分配系统接口(在接口表现上和新增行程座位分配没有区别，是否输入参数加个type区分？)
