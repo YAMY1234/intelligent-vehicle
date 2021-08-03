@@ -147,6 +147,7 @@ def info_update():
             log_writer("info_update", request.json, json.dumps({"status": 1, "suggust": ''}))
             return json.dumps({"status": 1, "suggust": ''})
         except:
+            log_writer("info_update", request.json, json.dumps({"status": 0, "suggust": ''}))
             return json.dumps({"status": 0, "suggust": ''})
 
 
@@ -285,6 +286,7 @@ def carinfo_update():
             log_writer("/carinfo_update", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
         except:
+            log_writer("/carinfo_update", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
 
 
@@ -379,6 +381,7 @@ def test():
         print(car_group_data)
         print(car_info)
         print(tasks_all)
+        log_writer('/test', request.json, json.dumps({"status": 1}))
         return json.dumps({"status": 1})
 
 
@@ -401,6 +404,7 @@ def ReturnRequest1():
         print(request.json)
         tasks = request.json
         task = ReturnRequest(tasks)
+        log_writer('/algorithmD',request.json,task)
         return task
 
 
@@ -419,6 +423,7 @@ def driverinfo_update():
     if request.method == 'POST':
         print(request.json)
         driver_info = request.json
+    log_writer('/driverinfo_update', request.json, json.dumps([1]))
     return json.dumps([1])
 
 

@@ -49,3 +49,37 @@ http://121.41.171.140:80/carStatusup
     "carStatus": 1,
     "driverid": ""
 }]
+
+
+[
+    {
+    "carId": "11",
+    "seat": 4,
+    "carType": 1,
+    "carOperatonStatus": 1,
+    "lng": "100",
+    "lat": "100",
+    "status": 0,
+    "driverId": ""
+    },
+        {
+    "carId": "12",
+    "seat": 4,
+    "carType": 1,
+    "carOperatonStatus": 1,
+    "lng": "0",
+    "lat": "0",
+    "status": 1,
+    "driverId": ""
+    },
+        {
+    "carId": "13",
+    "seat": 4,
+    "carType": 1,
+    "carOperatonStatus": 1,
+    "lng": "0",
+    "lat": "0",
+    "status": 0,
+    "driverId": ""
+    }
+]
