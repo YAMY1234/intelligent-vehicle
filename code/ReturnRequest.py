@@ -7,16 +7,16 @@ import pymysql
 
 def ReturnRequest(dl_ord):
      
-    #初始化参数
+    # 初始化参数
     status = 0
     suggest=""
-    #车辆数、座位数、总人数参数
+    # 车辆数、座位数、总人数参数
     # maxzuoweibuffer 是总的座位数，maxbusnum是总车辆数，zuoweibuffer是单辆车座位数。
-    maxzuoweibuffer=15
-    maxbusnum=5
+    maxzuoweibuffer=3
+    maxbusnum=1
     zuoweibuffer=3   
 
- #处理预约订单数据
+    # 处理预约订单数据
     a = str(dl_ord['oId'])
     d = dl_ord['startTime']
     start_time=dt.datetime.strptime(d,"%Y-%m-%d %H:%M:%S")   
