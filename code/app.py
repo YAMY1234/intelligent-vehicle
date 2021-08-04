@@ -196,7 +196,6 @@ def get_name():
         print(car_group_data)
         print(car_info)
         tickets_json = request.json
-
         print(request.json)
         tickets = dict()
         for num, ticket in enumerate(tickets_json):
@@ -323,7 +322,7 @@ def carStatusup():
                 temp_car_info['lat'] = car['carLoc'].split(',')[1]
                 temp_car_info['status'] = abs(1 - car['carStatus'])
                 temp_car_info['driverId'] = car['driverId']
-                temp_car_info['busy'] = car['busy']
+                temp_car_info['busy'] = 0
                 if temp_car_info['status'] == 1:
                     temp_car_info['busy'] = 1
                 car_info[car_id] = temp_car_info
@@ -407,7 +406,6 @@ def ReturnRequest1():
         res = ReturnRequest(tasks_in)
         log_writer('/algorithmD',request.json,res)
         return res
-
 
 # 司机信息更新系统接口
 # 接口地址			http://47.111.139.187:5000/driverinfo_update
