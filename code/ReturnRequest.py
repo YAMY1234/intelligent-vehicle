@@ -8,16 +8,15 @@ import pymysql
 def ReturnRequest(dl_ord,mode):
     if mode == "release" :
         table_name="order_request"
+        maxzuoweibuffer = 15  # 15
+        maxbusnum = 5  # 5
+        zuoweibuffer = 3
     else:
         table_name="order_request_sz_test"
-    #初始化参数
-    status = 0
-    suggest=""
-    #车辆数、座位数、总人数参数
+        maxzuoweibuffer = 3  # 15
+        maxbusnum = 1  # 5
+        zuoweibuffer = 3
     # maxzuoweibuffer 是总的座位数，maxbusnum是总车辆数，zuoweibuffer是单辆车座位数。
-    maxzuoweibuffer=3 # 15
-    maxbusnum=1 # 5
-    zuoweibuffer=3   
 
  #处理预约订单数据
     a = str(dl_ord['oId'])
