@@ -5,7 +5,11 @@ import random
 import math
 import pymysql
 
-def ReturnRequest(dl_ord):
+def ReturnRequest(dl_ord,mode):
+    if mode == "release" :
+        table_name="order_request"
+    else:
+        table_name="order_request_sz_test"
     #初始化参数
     status = 0
     suggest=""
@@ -44,7 +48,7 @@ def ReturnRequest(dl_ord):
 # 构建数据库链接
     conn = pymysql.connect(host="rm-bp164444922wma90vwo.mysql.rds.aliyuncs.com", user="hztest", password="Hjjj0842",db="hztestdb", charset="utf8")
     cur = conn.cursor()
-    sql="select orderod,ordernum,orderlist,secondstime,starttime,charternum from order_request where date(starttime)=date('"+str(start_time.date())+"')"
+    sql="select orderod,ordernum,orderlist,secondstime,starttime,charternum from "+table_name+" where date(starttime)=date('"+str(start_time.date())+"')"
     cur.execute(sql)
     results = cur.fetchall()
 # 处理历史订单记录时间、人数、订单号、od
@@ -132,11 +136,11 @@ def ReturnRequest(dl_ord):
          oidnum_e=results[breakout][1]+int(e)
          oidlist_e=results[breakout][2]+" "+a  
          od_e=results[breakout][0]
-         sql="update order_request set orderlist='"+str(oidlist_e)+"', ordernum="+str(oidnum_e)+" where orderod='"+str(od_e)+"' and date(starttime)=date('"+str(start_time.date())+"') and secondstime="+str(second_order)+" and charternum=0"
+         sql="update "+table_name+" set orderlist='"+str(oidlist_e)+"', ordernum="+str(oidnum_e)+" where orderod='"+str(od_e)+"' and date(starttime)=date('"+str(start_time.date())+"') and secondstime="+str(second_order)+" and charternum=0"
          cur.execute(sql)
          conn.commit()
     else:
-         sql="insert into order_request values (str_to_date('"+str(d)+"','%Y-%m-%d %H:%i:%s'),'"+a+"',"+str(e)+",'"+ostart+"-"+dstart+"',"+str(second_order)+",'"+dt.datetime.strftime(dt.datetime.now(),'%Y-%m-%d %H:%M:%S')+"','-1',0)"
+         sql="insert into "+table_name+" values (str_to_date('"+str(d)+"','%Y-%m-%d %H:%i:%s'),'"+a+"',"+str(e)+",'"+ostart+"-"+dstart+"',"+str(second_order)+",'"+dt.datetime.strftime(dt.datetime.now(),'%Y-%m-%d %H:%M:%S')+"','-1',0)"
          cur.execute(sql)
          conn.commit()
     cur.close()

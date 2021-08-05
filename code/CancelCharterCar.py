@@ -3,9 +3,13 @@ import datetime as dt
 import json
 import pymysql
 
-def CancelCharterCar(dl_ord):
+def CancelCharterCar(dl_ord,mode):
     #输入数据预处理,进来就是json格式
     #f2 = pd.read_csv("包车信息表.csv",encoding='utf-8')
+    if mode=="release":
+        table_name="order_request"
+    else:
+        table_name="order_request_sz_test"
 
     a = dl_ord['oId']
     d = dl_ord['startTime']
@@ -37,7 +41,7 @@ def CancelCharterCar(dl_ord):
 # 构建数据库链接
     conn = pymysql.connect(host="rm-bp164444922wma90vwo.mysql.rds.aliyuncs.com", user="hztest", password="Hjjj0842",db="hztestdb", charset="utf8")
     cur = conn.cursor()    
-    sql="select orderod,ordernum,orderlist,secondstime,starttime,charterbus from order_request where date(starttime)=date('"+str(start_time.date())+"') and orderod='"+ from_p_id+"-"+to_p_id+"' and secondstime="+str(second_order)+" and charterbus='"+e+"'"   
+    sql="select orderod,ordernum,orderlist,secondstime,starttime,charterbus from "+table_name+" where date(starttime)=date('"+str(start_time.date())+"') and orderod='"+ from_p_id+"-"+to_p_id+"' and secondstime="+str(second_order)+" and charterbus='"+e+"'"
     cur.execute(sql)
     results = cur.fetchall()
     for raw in results: 
@@ -53,12 +57,12 @@ def CancelCharterCar(dl_ord):
                 if(e=="-1"):
                        oidnum_e=oidnum_e-pcout
                 if(len(o_d_e)==0):                     
-                       sql="delete from order_request where date(starttime)=date('"+str(start_time.date())+"') and orderod='"+ from_p_id+"-"+to_p_id+"' and secondstime="+str(second_order)+" and charterbus='"+e+"'"                         
+                       sql="delete from "+table_name+" where date(starttime)=date('"+str(start_time.date())+"') and orderod='"+ from_p_id+"-"+to_p_id+"' and secondstime="+str(second_order)+" and charterbus='"+e+"'"
                        cur.execute(sql)
                        conn.commit()
                 else:
                        oidlist_e=' '.join(o_d_e)
-                       sql="update order_request set ordernum="+str(oidnum_e)+",orderlist='"+oidlist_e+"' where date(starttime)=date('"+str(start_time.date())+"') and orderod='"+ from_p_id+"-"+to_p_id+"' and secondstime="+str(second_order)+" and charterbus='-1'"
+                       sql="update "+table_name+" set ordernum="+str(oidnum_e)+",orderlist='"+oidlist_e+"' where date(starttime)=date('"+str(start_time.date())+"') and orderod='"+ from_p_id+"-"+to_p_id+"' and secondstime="+str(second_order)+" and charterbus='-1'"
                        cur.execute(sql)
                        conn.commit()
         else:

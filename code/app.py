@@ -36,6 +36,7 @@ CAR_INFO_node
 
 car_seat_info = make_car_seat_info()
 all_arranges = []
+global mode
 
 station_id = ['1001', '1002', '1003', '1004', '1005', '1006', '1007', '1008', '1009', '1010', '1011', '1012', '1101',
               '1102', '1103', '1104', '1105', \
@@ -401,9 +402,10 @@ def test():
 @app.route('/algorithmD', methods=['GET', 'POST', 'DELECT'])
 def ReturnRequest1():
     if request.method == 'POST':
+        global mode
         print(request.json)
         tasks_in = request.json
-        res = ReturnRequest(tasks_in)
+        res = ReturnRequest(tasks_in,mode)
         log_writer('/algorithmD',request.json,res)
         return res
 
@@ -738,8 +740,9 @@ def chartercar():
 @app.route('/CancelCharterCar', methods=['GET', 'POST', 'DELECT'])
 def CancelCharterCar2():
     if request.method=='POST':
+        global mode
         print(request.json)
-        res = CancelCharterCar(request.json)
+        res = CancelCharterCar(request.json,mode)
         log_writer('/CancelCharterCar', request.json, res)
         return res
 
@@ -897,7 +900,10 @@ def path_planning():
 
 if __name__ == '__main__':
     time_count = 0
+    global mode
     try:
+        mode="release"
         app.run(host='0.0.0.0', port=80)
     except:
+        mode = "debug"
         app.run(host='0.0.0.0', port=83)

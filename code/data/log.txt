@@ -1,0 +1,99 @@
+
+
+################################################################2021-08-04 11:28
+请求路由:
+/CancelCharterCar
+请求信息内容:
+{'toId': '204', 'ticketNumber': 1, 'charteredBusNum': '-1', 'startTime': '2021-08-04 12:10:00', 'oId': '1620741108040013', 'fromId': '107'}
+返回信息内容:
+{'status': 301, 'suggest': '取消失败，找不到订单预约信息'}
+
+----------当前车辆状态：
+ CAR_GROUP_DATA:
+{'11': {'carId': '11', 'car_gps': '114.371816,22.708717', 'marshalling_list': ['11']}, '100001': {'carId': '100001', 'car_gps': '118.045709,24.608279', 'marshalling_list': ['100001']}, '14': {'carId': '14', 'car_gps': '114.371975,22.708692', 'marshalling_list': ['14']}, '13': {'carId': '13', 'car_gps': '0.0,0.0', 'marshalling_list': ['13']}}
+CAR_INO
+{'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0, 'lng': '118.045709', 'lat': '24.608279', 'status': 1, 'driverId': '1', 'busy': 1}, 'busy': 0}
+
+################################################################2021-08-04 11:29
+请求路由:
+/CancelCharterCar
+请求信息内容:
+{'toId': '204', 'ticketNumber': 1, 'charteredBusNum': '-1', 'startTime': '2021-08-04 12:10:00', 'oId': '1620741108040013', 'fromId': '107'}
+返回信息内容:
+{'status': 301, 'suggest': '取消失败，找不到订单预约信息'}
+
+----------当前车辆状态：
+ CAR_GROUP_DATA:
+{'11': {'carId': '11', 'car_gps': '114.371816,22.708717', 'marshalling_list': ['11']}, '100001': {'carId': '100001', 'car_gps': '118.045709,24.608279', 'marshalling_list': ['100001']}, '14': {'carId': '14', 'car_gps': '114.371975,22.708692', 'marshalling_list': ['14']}, '13': {'carId': '13', 'car_gps': '0.0,0.0', 'marshalling_list': ['13']}}
+CAR_INO
+{'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0, 'lng': '118.045709', 'lat': '24.608279', 'status': 1, 'driverId': '1', 'busy': 1}, 'busy': 0}
+
+################################################################2021-08-04 11:29
+请求路由:
+/CancelCharterCar
+请求信息内容:
+{'toId': '204', 'ticketNumber': 1, 'charteredBusNum': '-1', 'startTime': '2021-08-04 12:10:00', 'oId': '1620741108040013', 'fromId': '107'}
+返回信息内容:
+{'status': 301, 'suggest': '取消失败，找不到订单预约信息'}
+
+----------当前车辆状态：
+ CAR_GROUP_DATA:
+{'11': {'carId': '11', 'car_gps': '114.371816,22.708717', 'marshalling_list': ['11']}, '100001': {'carId': '100001', 'car_gps': '118.045709,24.608279', 'marshalling_list': ['100001']}, '14': {'carId': '14', 'car_gps': '114.371975,22.708692', 'marshalling_list': ['14']}, '13': {'carId': '13', 'car_gps': '0.0,0.0', 'marshalling_list': ['13']}}
+CAR_INO
+{'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0, 'lng': '118.045709', 'lat': '24.608279', 'status': 1, 'driverId': '1', 'busy': 1}, 'busy': 0}
+
+################################################################2021-08-04 11:29
+请求路由:
+/CancelCharterCar
+请求信息内容:
+{'toId': '204', 'ticketNumber': 1, 'charteredBusNum': '-1', 'startTime': '2021-08-04 12:10:00', 'oId': '1620741108040013', 'fromId': '107'}
+返回信息内容:
+{'status': 301, 'suggest': '取消失败，找不到订单预约信息'}
+
+----------当前车辆状态：
+ CAR_GROUP_DATA:
+{'11': {'carId': '11', 'car_gps': '114.371816,22.708717', 'marshalling_list': ['11']}, '100001': {'carId': '100001', 'car_gps': '118.045709,24.608279', 'marshalling_list': ['100001']}, '14': {'carId': '14', 'car_gps': '114.371975,22.708692', 'marshalling_list': ['14']}, '13': {'carId': '13', 'car_gps': '0.0,0.0', 'marshalling_list': ['13']}}
+CAR_INO
+{'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0, 'lng': '118.045709', 'lat': '24.608279', 'status': 1, 'driverId': '1', 'busy': 1}, 'busy': 0}
+
+################################################################2021-08-04 12:01
+请求路由:
+/CancelCharterCar
+请求信息内容:
+{'toId': '204', 'ticketNumber': 1, 'charteredBusNum': '-1', 'startTime': '2021-08-04 12:10:00', 'oId': '1620741108040013', 'fromId': '107'}
+返回信息内容:
+{'status': 301, 'suggest': '取消失败，找不到订单预约信息'}
+
+----------当前车辆状态：
+ CAR_GROUP_DATA:
+{'11': {'carId': '11', 'car_gps': '114.371816,22.708717', 'marshalling_list': ['11']}, '100001': {'carId': '100001', 'car_gps': '118.045709,24.608279', 'marshalling_list': ['100001']}, '14': {'carId': '14', 'car_gps': '114.371975,22.708692', 'marshalling_list': ['14']}, '13': {'carId': '13', 'car_gps': '0.0,0.0', 'marshalling_list': ['13']}}
+CAR_INO
+{'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0, 'lng': '118.045709', 'lat': '24.608279', 'status': 1, 'driverId': '1', 'busy': 1}, 'busy': 0}
+
+################################################################2021-08-05 14:29
+请求路由:
+/algorithmD
+请求信息内容:
+{'toId': '204', 'ticketNumber': 1, 'startTime': '2021-08-04 10:50:00', 'oId': '1620741108040001', 'fromId': '107'}
+返回信息内容:
+{"status": 201, "suggest": "预约成功"}
+
+----------当前车辆状态：
+ CAR_GROUP_DATA:
+{'11': {'carId': '11', 'car_gps': '114.371816,22.708717', 'marshalling_list': ['11']}, '100001': {'carId': '100001', 'car_gps': '118.045709,24.608279', 'marshalling_list': ['100001']}, '14': {'carId': '14', 'car_gps': '114.371975,22.708692', 'marshalling_list': ['14']}, '13': {'carId': '13', 'car_gps': '0.0,0.0', 'marshalling_list': ['13']}}
+CAR_INO
+{'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0, 'lng': '118.045709', 'lat': '24.608279', 'status': 1, 'driverId': '1', 'busy': 1}, 'busy': 0}
+
+################################################################2021-08-05 14:29
+请求路由:
+/CancelCharterCar
+请求信息内容:
+{'toId': '204', 'ticketNumber': 1, 'charteredBusNum': '-1', 'startTime': '2021-08-04 12:10:00', 'oId': '1620741108040013', 'fromId': '107'}
+返回信息内容:
+{'status': 301, 'suggest': '取消失败，找不到订单预约信息'}
+
+----------当前车辆状态：
+ CAR_GROUP_DATA:
+{'11': {'carId': '11', 'car_gps': '114.371816,22.708717', 'marshalling_list': ['11']}, '100001': {'carId': '100001', 'car_gps': '118.045709,24.608279', 'marshalling_list': ['100001']}, '14': {'carId': '14', 'car_gps': '114.371975,22.708692', 'marshalling_list': ['14']}, '13': {'carId': '13', 'car_gps': '0.0,0.0', 'marshalling_list': ['13']}}
+CAR_INO
+{'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0, 'lng': '118.045709', 'lat': '24.608279', 'status': 1, 'driverId': '1', 'busy': 1}, 'busy': 0}
