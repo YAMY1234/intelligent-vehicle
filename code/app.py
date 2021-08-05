@@ -195,7 +195,6 @@ def get_name():
         print(car_group_data)
         print(car_info)
         tickets_json = request.json
-
         print(request.json)
         tickets = dict()
         for num, ticket in enumerate(tickets_json):
@@ -406,7 +405,6 @@ def ReturnRequest1():
         res = ReturnRequest(tasks_in)
         log_writer('/algorithmD',request.json,res)
         return res
-
 
 # 司机信息更新系统接口
 # 接口地址			http://47.111.139.187:5000/driverinfo_update

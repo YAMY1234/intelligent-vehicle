@@ -72,4 +72,4 @@ def CancelCharterCar(dl_ord):
     #f2.to_csv('包车信息表.csv',index= False,encoding="utf-8")
     outputstr="取消成功"
     task_json={"status":201,"suggest":str(outputstr)}   
-    return task_json
+    return json.dumps(task_json)

@@ -6,14 +6,13 @@ import math
 import pymysql
 
 def ReturnRequest(dl_ord):
-     
-    # 初始化参数
+    #初始化参数
     status = 0
     suggest=""
     # 车辆数、座位数、总人数参数
     # maxzuoweibuffer 是总的座位数，maxbusnum是总车辆数，zuoweibuffer是单辆车座位数。
-    maxzuoweibuffer=3
-    maxbusnum=1
+    maxzuoweibuffer=3 # 15
+    maxbusnum=1 # 5
     zuoweibuffer=3   
 
     # 处理预约订单数据
@@ -36,7 +35,7 @@ def ReturnRequest(dl_ord):
        task = json.dumps(task_json, ensure_ascii=False)
        return task
     if (e==0):
-       outputstr="单笔人数为0,您需要新增订单人数"           
+       outputstr="单笔人数为0,您需要新增订单人数"
        task_json={"status":303,"suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
@@ -55,7 +54,6 @@ def ReturnRequest(dl_ord):
     od_e=""
     second_e=-1
     charternum=0
-
     totalnum=0
     findex=0
     coutDingdan=0
@@ -74,8 +72,8 @@ def ReturnRequest(dl_ord):
         od_e=raw [0] 
         charternum=raw[5] 
         if(charternum!=0):
-                totalnum+=charternum
-                coutDingdan+=1
+            totalnum+=charternum
+            coutDingdan+=1
         if(second_e==second_order and charternum==0): 
             totalnum+=oidnum_e
             coutDingdan+=math.ceil(oidnum_e/3)        
@@ -117,7 +115,7 @@ def ReturnRequest(dl_ord):
                 if(coutDingdan>=maxbusnum and breakout!=-1 and mintimesel!=start_time.hour*18001):
                      cur.close()
                      conn.close()
-                     outputstr="当前预约运能紧张，建议选择出发时间"+str(results[breakout][4])+"下单"           
+                     outputstr="当前预约运能紧张，建议选择出发时间"+str(results[breakout][4])+"下单"
                      task_json={"status":305,"suggest":str(outputstr)}
                      task = json.dumps(task_json, ensure_ascii=False)
                      return task
