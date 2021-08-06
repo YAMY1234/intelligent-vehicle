@@ -392,7 +392,6 @@ def travelStatusChange():
             log_writer("/carStatusup", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
 
-
 @app.route('/carpos_update', methods=['GET', 'POST', 'DELECT'])
 def carpos_update():
     if request.method == 'POST':

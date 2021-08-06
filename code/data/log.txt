@@ -280,3 +280,17 @@ CAR_INO
 {}
 CAR_INO
 {'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0}}
+
+################################################################2021-08-06 12:50
+请求路由:
+/carStatusup
+请求信息内容:
+[{'carId': '17', 'carLoc': '114.413106,22.722399', 'carSeatNumber': 5, 'carStatus': 1, 'carType': 1001, 'cityType': '1', 'driverId': '10010099'}]
+返回信息内容:
+{"status": 1}
+
+----------当前车辆状态：
+ CAR_GROUP_DATA:
+{'17': {'carId': '17', 'car_gps': '114.413106,22.722399', 'marshalling_list': ['17']}}
+CAR_INO
+{'17': {'vehicleId': '17', 'seat': 4, 'carType': 1, 'carOperatonStatus': 0, 'lng': '114.413106', 'lat': '22.722399', 'status': 0, 'driverId': '10010099', 'busy': 0}, 'busy': 0}
