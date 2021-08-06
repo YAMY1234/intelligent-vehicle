@@ -366,18 +366,6 @@ def travelStatusChange():
             new_car_info = request.json
             print(request.json)
             print(new_car_info)
-            # for car in new_car_info:
-            #     car_id = car['vehicleId']
-            #     if car_id not in car_info.keys():
-            #         return json.dumps({"status": 0})
-            #     # car_info['busy'] = 0
-            #     temp_car_info = car_info[car_id]
-            #     temp_car_info['busy'] = abs(1 - car['status'])# 1表示行程开始 2表示行程结束  这个只是增加了一个属性而已，并没有更新哈啥的
-            #     if temp_car_info['status'] == 1:
-            #         temp_car_info['busy'] = 1
-            #     if temp_car_info['status'] == 0:
-            #         temp_car_info['busy'] = 0
-            #     car_info[car_id] = temp_car_info
             car_id = str(new_car_info['vehicleId'])
             if car_id not in car_info.keys():
                 return json.dumps({"status": 0})
@@ -387,10 +375,10 @@ def travelStatusChange():
             with open('data/car_info.pkl', 'wb') as f:
                 pickle.dump(car_info, f, pickle.HIGHEST_PROTOCOL)
             f.close()
-            log_writer("/carStatusup", request.json, json.dumps({"status": 1}))
+            log_writer("/travelStatusChange", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
         except:
-            log_writer("/carStatusup", request.json, json.dumps({"status": 0}))
+            log_writer("/travelStatusChange", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
 '''
 {
@@ -406,13 +394,14 @@ def travelStatusChange():
 
 '''
 
-@app.route('/carpos_update', methods=['GET', 'POST', 'DELECT'])
+@app.route('/carLocation' , methods=['GET', 'POST', 'DELECT'])
 def carpos_update():
     if request.method == 'POST':
         try:
             new_car_info = request.json
             car_id = str(new_car_info['vehicleId'])
             if car_id not in car_info.keys() or car_id not in car_group_data.keys():
+                log_writer("/carLocation", request.json, json.dumps({"status": 0}))
                 return json.dumps({"status": 0})
             temp_car_info = car_info[car_id]
             temp_car_info['lng'] = new_car_info['lng']
@@ -425,7 +414,6 @@ def carpos_update():
         except:
             log_writer("/carpos_update", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
-
 
 @app.route('/test', methods=['GET', 'POST', 'DELECT'])
 def test():
