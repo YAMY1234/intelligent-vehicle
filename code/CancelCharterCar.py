@@ -71,7 +71,7 @@ def CancelCharterCar(dl_ord,mode):
     if(start_time_e==None):
         outputstr="取消失败，找不到订单预约信息"
         task_json={"status":301,"suggest":str(outputstr)}
-        return task_json
+        return json.dumps(task_json)
     
     #f2.to_csv('包车信息表.csv',index= False,encoding="utf-8")
     outputstr="取消成功"
