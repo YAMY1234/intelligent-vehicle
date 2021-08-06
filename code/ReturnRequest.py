@@ -29,20 +29,21 @@ def ReturnRequest(dl_ord,mode):
 
     if (zuoweibuffer==0):
        outputstr="暂时没有车辆上线运营，请稍后预约"           
-       task_json={"status":302,"suggest":str(outputstr)}
+       task_json={"status":302,"direction":"","suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
     if (e>zuoweibuffer):
        outputstr="单笔人数过多,您需要减少订单人数至"+str(zuoweibuffer)+"人"           
-       task_json={"status":302,"suggest":str(outputstr)}
+       task_json={"status":302,"direction":"","suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
     if (e==0):
        outputstr="单笔人数为0,您需要新增订单人数"
-       task_json={"status":303,"suggest":str(outputstr)}
+       task_json={"status":303,"direction":"","suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
-    
+
+
 
 # 构建数据库链接
     conn = pymysql.connect(host="rm-bp164444922wma90vwo.mysql.rds.aliyuncs.com", user="hztest", password="Hjjj0842",db="hztestdb", charset="utf8")
@@ -103,7 +104,7 @@ def ReturnRequest(dl_ord,mode):
             cur.close()
             conn.close()
             outputstr="当前预约数已满，建议出发前30分钟进行即时下单"
-            task_json={"status":301,"suggest":str(outputstr)}
+            task_json={"status":301, "direction":"","suggest":str(outputstr)}
             task = json.dumps(task_json, ensure_ascii=False)
             return task
         else:  
@@ -111,7 +112,7 @@ def ReturnRequest(dl_ord,mode):
                 cur.close()
                 conn.close()
                 outputstr="当前预约运能紧张，建议出发前30分钟进行即时下单"           
-                task_json={"status":301,"suggest":str(outputstr)}
+                task_json={"status":301, "direction":"","suggest":str(outputstr)}
                 task = json.dumps(task_json, ensure_ascii=False)
                 return task
             else:
@@ -119,7 +120,7 @@ def ReturnRequest(dl_ord,mode):
                      cur.close()
                      conn.close()
                      outputstr="当前预约运能紧张，建议选择出发时间"+str(results[breakout][4])+"下单"
-                     task_json={"status":305,"suggest":str(outputstr)}
+                     task_json={"status":305, "direction":"","suggest":str(outputstr)}
                      task = json.dumps(task_json, ensure_ascii=False)
                      return task
                 if(coutDingdan>=maxbusnum and breakout!=-1 and mintimesel==start_time.hour*18001):  
@@ -128,7 +129,7 @@ def ReturnRequest(dl_ord,mode):
                      outputstr="当前预约运能紧张，建议选择出发时间"+str(results[breakout][4])+",起始站为"+results[breakout][0]+"下单" 
                      if(addflag==True):      
                           outputstr="当前预约运能紧张"    
-                     task_json={"status":305,"suggest":str(outputstr)}
+                     task_json={"status":305, "direction":"","suggest":str(outputstr)}
                      task = json.dumps(task_json, ensure_ascii=False)
                      return task   
     if(breakout !=-1 and addflag==True):
@@ -142,9 +143,25 @@ def ReturnRequest(dl_ord,mode):
          sql="insert into "+table_name+" values (str_to_date('"+str(d)+"','%Y-%m-%d %H:%i:%s'),'"+a+"',"+str(e)+",'"+ostart+"-"+dstart+"',"+str(second_order)+",'"+dt.datetime.strftime(dt.datetime.now(),'%Y-%m-%d %H:%M:%S')+"','-1',0)"
          cur.execute(sql)
          conn.commit()
+
+    sql = "select direction from section_info where ostation='" + ostart + "' and dstation='" + dstart + "'"
+    cur.execute(sql)
+    oddirect = cur.fetchall()
+    directionstr = -1
+    for raw in oddirect:
+        directionstr = raw[0]
+
+    if (directionstr == -1):
+        outputstr = "当前OD不在运营线路中"
+        task_json = {"status": 304, "direction": int(directionstr), "suggest": str(outputstr)}
+        task = json.dumps(task_json, ensure_ascii=False)
+        return task
+
     cur.close()
     conn.close()
     outputstr="预约成功"
-    task_json={"status":201,"suggest":str(outputstr)}
+
+
+    task_json={"status":201, "direction": int(directionstr),"suggest":str(outputstr)}
     task = json.dumps(task_json, ensure_ascii=False)    
     return task
