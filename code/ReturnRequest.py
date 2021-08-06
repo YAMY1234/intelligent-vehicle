@@ -25,21 +25,22 @@ def ReturnRequest(dl_ord,mode):
     second_order=start_time.hour*3600+start_time.minute*60+start_time.second
     e = dl_ord['ticketNumber']
     ostart=dl_ord['fromId']
-    dstart=dl_ord['toId']    
+    dstart=dl_ord['toId']
+    directionstr = 0
 
     if (zuoweibuffer==0):
        outputstr="暂时没有车辆上线运营，请稍后预约"           
-       task_json={"status":302,"direction":"","suggest":str(outputstr)}
+       task_json={"status":302,"direction":int(directionstr),"suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
     if (e>zuoweibuffer):
        outputstr="单笔人数过多,您需要减少订单人数至"+str(zuoweibuffer)+"人"           
-       task_json={"status":302,"direction":"","suggest":str(outputstr)}
+       task_json={"status":302,"direction":int(directionstr),"suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
     if (e==0):
        outputstr="单笔人数为0,您需要新增订单人数"
-       task_json={"status":303,"direction":"","suggest":str(outputstr)}
+       task_json={"status":303,"direction":int(directionstr),"suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
 
@@ -104,7 +105,7 @@ def ReturnRequest(dl_ord,mode):
             cur.close()
             conn.close()
             outputstr="当前预约数已满，建议出发前30分钟进行即时下单"
-            task_json={"status":301, "direction":"","suggest":str(outputstr)}
+            task_json={"status":301, "direction":int(directionstr),"suggest":str(outputstr)}
             task = json.dumps(task_json, ensure_ascii=False)
             return task
         else:  
@@ -112,7 +113,7 @@ def ReturnRequest(dl_ord,mode):
                 cur.close()
                 conn.close()
                 outputstr="当前预约运能紧张，建议出发前30分钟进行即时下单"           
-                task_json={"status":301, "direction":"","suggest":str(outputstr)}
+                task_json={"status":301, "direction":int(directionstr),"suggest":str(outputstr)}
                 task = json.dumps(task_json, ensure_ascii=False)
                 return task
             else:
@@ -120,7 +121,7 @@ def ReturnRequest(dl_ord,mode):
                      cur.close()
                      conn.close()
                      outputstr="当前预约运能紧张，建议选择出发时间"+str(results[breakout][4])+"下单"
-                     task_json={"status":305, "direction":"","suggest":str(outputstr)}
+                     task_json={"status":305, "direction":int(directionstr),"suggest":str(outputstr)}
                      task = json.dumps(task_json, ensure_ascii=False)
                      return task
                 if(coutDingdan>=maxbusnum and breakout!=-1 and mintimesel==start_time.hour*18001):  
@@ -129,7 +130,7 @@ def ReturnRequest(dl_ord,mode):
                      outputstr="当前预约运能紧张，建议选择出发时间"+str(results[breakout][4])+",起始站为"+results[breakout][0]+"下单" 
                      if(addflag==True):      
                           outputstr="当前预约运能紧张"    
-                     task_json={"status":305, "direction":"","suggest":str(outputstr)}
+                     task_json={"status":305, "direction":int(directionstr),"suggest":str(outputstr)}
                      task = json.dumps(task_json, ensure_ascii=False)
                      return task   
     if(breakout !=-1 and addflag==True):
@@ -147,15 +148,14 @@ def ReturnRequest(dl_ord,mode):
     sql = "select direction from section_info where ostation='" + ostart + "' and dstation='" + dstart + "'"
     cur.execute(sql)
     oddirect = cur.fetchall()
-    directionstr = -1
+
     for raw in oddirect:
         directionstr = raw[0]
 
-    if (directionstr == -1):
-        outputstr = "当前OD不在运营线路中"
-        task_json = {"status": 304, "direction": int(directionstr), "suggest": str(outputstr)}
-        task = json.dumps(task_json, ensure_ascii=False)
-        return task
+    outputstr = "当前OD不在运营线路中"
+    task_json = {"status": 304, "direction": int(directionstr), "suggest": str(outputstr)}
+    task = json.dumps(task_json, ensure_ascii=False)
+    return task
 
     cur.close()
     conn.close()
