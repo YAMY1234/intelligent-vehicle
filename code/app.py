@@ -316,7 +316,7 @@ def carStatusup():
                 car_id = car['carId']
                 if car_id not in car_info.keys():
                     return json.dumps({"status": 0})
-                car_info['busy'] = 0
+                car_info[car_id]['busy'] = 0 # 这个我不知道有没有用了
                 temp_car_info = car_info[car_id]
                 temp_car_info['lng'] = car['carLoc'].split(',')[0]
                 temp_car_info['lat'] = car['carLoc'].split(',')[1]
@@ -341,6 +341,50 @@ def carStatusup():
             f.close()
             with open('data/car_group_data.pkl', 'wb') as f:
                 pickle.dump(car_group_data, f, pickle.HIGHEST_PROTOCOL)
+            f.close()
+            log_writer("/carStatusup", request.json, json.dumps({"status": 1}))
+            return json.dumps({"status": 1})
+        except:
+            log_writer("/carStatusup", request.json, json.dumps({"status": 0}))
+            return json.dumps({"status": 0})
+
+# "输入参数
+# （数组）"		数据类型	数据含义	实例(备注)
+# 	vehicleId	long	车辆ID
+# 	plateNo	str	车牌号
+# 	tripNo	str	行程编号（调度系统中行程的唯一标识）
+# 	status	int	行程执行状态，1-行程开始，2-行程结束
+# 	time	str	时间，格式yy-MM-dd hh:mm:ss
+# 输出参数
+# status	int 	更新状态参数	1：更新成功；0：更新失败
+
+@app.route('/travelStatusChange', methods=['GET', 'POST', 'DELECT'])
+def travelStatusChange():
+    if request.method == 'POST':
+        try:
+            new_car_info = request.json
+            print(request.json)
+            print(new_car_info)
+            # for car in new_car_info:
+            #     car_id = car['vehicleId']
+            #     if car_id not in car_info.keys():
+            #         return json.dumps({"status": 0})
+            #     # car_info['busy'] = 0
+            #     temp_car_info = car_info[car_id]
+            #     temp_car_info['busy'] = abs(1 - car['status'])# 1表示行程开始 2表示行程结束  这个只是增加了一个属性而已，并没有更新哈啥的
+            #     if temp_car_info['status'] == 1:
+            #         temp_car_info['busy'] = 1
+            #     if temp_car_info['status'] == 0:
+            #         temp_car_info['busy'] = 0
+            #     car_info[car_id] = temp_car_info
+            car_id = str(new_car_info['vehicleId'])
+            if car_id not in car_info.keys():
+                return json.dumps({"status": 0})
+            temp_car_info = car_info[car_id]
+            temp_car_info['busy'] = abs(1 - new_car_info['status'])  # 1表示行程开始 2表示行程结束  这个只是增加了一个属性而已，并没有更新哈啥的
+            car_info[car_id] = temp_car_info
+            with open('data/car_info.pkl', 'wb') as f:
+                pickle.dump(car_info, f, pickle.HIGHEST_PROTOCOL)
             f.close()
             log_writer("/carStatusup", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
