@@ -392,24 +392,33 @@ def travelStatusChange():
         except:
             log_writer("/carStatusup", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
+'''
+{
+    "altitude":155,
+    "direction":10,
+    "lat":31.357039,
+    "lng":121.263633,
+    "plateNo":"鲁B12345",
+    "time":"2021-04-22 15:13:06",
+    "vehicleId":2,
+    "velocity":12
+}
 
+'''
 
 @app.route('/carpos_update', methods=['GET', 'POST', 'DELECT'])
 def carpos_update():
     if request.method == 'POST':
         try:
             new_car_info = request.json
-            print(request.json)
-            print(new_car_info)
-            for car in new_car_info:
-                car_id = car['carId']
-                if car_id not in car_info.keys() or car_id not in car_group_data.keys():
-                    return json.dumps({"status": 0})
-                temp_car_info = car_info[car_id]
-                temp_car_info['lng'] = car['carLoc'].split(',')[0]
-                temp_car_info['lat'] = car['carLoc'].split(',')[1]
-                car_info[car_id] = temp_car_info
-                car_group_data[car_id]['car_gps'] = car['carLoc']
+            car_id = str(new_car_info['vehicleId'])
+            if car_id not in car_info.keys() or car_id not in car_group_data.keys():
+                return json.dumps({"status": 0})
+            temp_car_info = car_info[car_id]
+            temp_car_info['lng'] = new_car_info['lng']
+            temp_car_info['lat'] = new_car_info['lat']
+            car_info[car_id] = temp_car_info
+            car_group_data[car_id]['car_gps'] = str(temp_car_info['lat']) + ',' + str(temp_car_info['lng'])
             init_group_car(car_group_data)
             log_writer("/carpos_update", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
