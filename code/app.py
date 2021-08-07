@@ -124,7 +124,6 @@ def log_writer(route, info, res):
         return "NOT OK"
 
 
-
 ## 1 将车辆信息和站点绑定
 ## 2 分配车辆时考虑车辆的位置
 ## 3 得到车辆的行驶轨迹
