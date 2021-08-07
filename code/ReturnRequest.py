@@ -18,7 +18,7 @@ def ReturnRequest(dl_ord,mode):
         zuoweibuffer = 3
     # maxzuoweibuffer 是总的座位数，maxbusnum是总车辆数，zuoweibuffer是单辆车座位数。
 
-    # 处理预约订单数据
+ #处理预约订单数据
     a = str(dl_ord['oId'])
     d = dl_ord['startTime']
     start_time=dt.datetime.strptime(d,"%Y-%m-%d %H:%M:%S")   
