@@ -79,6 +79,19 @@ init_group_car(car_group_data)
 print(car_group_data)
 print(car_info)
 
+# class MyEncoder(json.JSONEncoder):
+#     def default(self, obj):
+#         if isinstance(obj, np.ndarray):
+#             return obj.tolist()
+#         elif isinstance(obj, bytes):
+#             return str(obj, encoding='utf-8');
+#         return json.JSONEncoder.default(self, obj)
+
+class MyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, bytes):
+            return str(obj, encoding='utf-8');
+        return json.JSONEncoder.default(self, obj)
 
 ############################### 日志编写函数  ########################
 def log_writer(route, info, res):
@@ -89,9 +102,16 @@ def log_writer(route, info, res):
                 stamp = int(time.time())
                 log = "################################################################"
                 log = log + time.strftime("%Y-%m-%d %H:%M",
-                                          time.localtime(stamp)) + "\n" + "请求路由:\n" + route + "\n" + "请求信息内容:\n" + str(
-                    info) + "\n返回信息内容:\n" + str(res) + "\n\n"
-                log += "----------当前车辆状态：\n CAR_GROUP_DATA:\n" + str(car_group_data) + "\nCAR_INO\n" + str(car_info)
+                                          time.localtime(stamp)) + "\n" + "请求路由:\n" + route + "\n"
+                log+="请求信息内容:\n" + json.dumps(info, sort_keys=True, indent=4, separators=(',', ':'))
+                log+="\n返回信息内容:\n" + str(res[0:], encoding="utf-8")+ "\n\n"#sort_keys=True ,  indent=4 ,  separators=(',', ':')
+                concise_car_info=dict()
+                for car in car_info.keys():
+                    concise_car_info[car]=dict()
+                    concise_car_info[car]['status']=car_info[car]['status']
+                    concise_car_info[car]['busy']=car_info[car]['busy']
+                log += "----------当前车辆状态：\n CAR_GROUP_DATA:\n" + str(car_group_data)
+                log+="\nCAR_INO\n" + json.dumps(concise_car_info, sort_keys=True, indent=4, separators=(',', ':'))
                 file.write("\n\n")
                 file.write(log)
                 file.close()
@@ -205,14 +225,12 @@ def get_name():
         status = []
         new_tickets = merge_to_newtickets(tickets)
         print(new_tickets)
-        counter=0
         for name in new_tickets.keys():
             ticket = new_tickets[name]
             start_pos = ticket['fromId']
             cars, seat = get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_group_data)
             print(cars, seat, ticket['ticketNumber'])
-            if cars and counter<len(cars):
-                counter += 1
+            if cars:
                 if len(tasks) == 0:
                     begin_id = len(tasks_all)
                 else:
@@ -226,7 +244,7 @@ def get_name():
             else:
                 # return 'car is not enough'
                 status.append(3)
-            car_info_update(cars, car_info)
+            # car_info_update(cars, car_info)
 
         final_info = []
         flag = 0
@@ -244,7 +262,7 @@ def get_name():
         final_info = final_task
         add_new_task_to_all(tasks, tasks_all)
         result = json.dumps(final_info, ensure_ascii=False).encode('utf8')
-        log_writer("/algorithm", request.json, result)
+        log_writer("/algorithm", request.json, json.dumps(final_info, ensure_ascii=False,indent=4).encode('utf8'))
         return result
 
 
@@ -370,7 +388,7 @@ def travelStatusChange():
             if car_id not in car_info.keys():
                 return json.dumps({"status": 0})
             temp_car_info = car_info[car_id]
-            temp_car_info['busy'] = abs(1 - new_car_info['status'])  # 1表示行程开始 2表示行程结束  这个只是增加了一个属性而已，并没有更新哈啥的
+            temp_car_info['busy'] = abs(2 - new_car_info['status'])  # 1表示行程开始 2表示行程结束  这个只是增加了一个属性而已，并没有更新哈啥的
             car_info[car_id] = temp_car_info
             with open('data/car_info.pkl', 'wb') as f:
                 pickle.dump(car_info, f, pickle.HIGHEST_PROTOCOL)
@@ -409,10 +427,8 @@ def carpos_update():
             car_info[car_id] = temp_car_info
             car_group_data[car_id]['car_gps'] = str(temp_car_info['lat']) + ',' + str(temp_car_info['lng'])
             init_group_car(car_group_data)
-            log_writer("/carpos_update", request.json, json.dumps({"status": 1}))
             return json.dumps({"status": 1})
         except:
-            log_writer("/carpos_update", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
 
 @app.route('/test', methods=['GET', 'POST', 'DELECT'])

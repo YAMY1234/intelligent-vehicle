@@ -26,7 +26,18 @@ def ReturnRequest(dl_ord,mode):
     e = dl_ord['ticketNumber']
     ostart=dl_ord['fromId']
     dstart=dl_ord['toId']
-    directionstr = 0
+
+    # 构建数据库链接
+    conn = pymysql.connect(host="rm-bp164444922wma90vwo.mysql.rds.aliyuncs.com", user="hztest", password="Hjjj0842",
+                           db="hztestdb", charset="utf8")
+    cur = conn.cursor()
+
+    sql = "select direction from section_info where ostation='" + ostart + "' and dstation='" + dstart + "'"
+    cur.execute(sql)
+    oddirect = cur.fetchall()
+    directionstr = -1
+    for raw in oddirect:
+        directionstr = raw[0]
 
     if (zuoweibuffer==0):
        outputstr="暂时没有车辆上线运营，请稍后预约"           
@@ -46,9 +57,7 @@ def ReturnRequest(dl_ord,mode):
 
 
 
-# 构建数据库链接
-    conn = pymysql.connect(host="rm-bp164444922wma90vwo.mysql.rds.aliyuncs.com", user="hztest", password="Hjjj0842",db="hztestdb", charset="utf8")
-    cur = conn.cursor()
+
     sql="select orderod,ordernum,orderlist,secondstime,starttime,charternum from "+table_name+" where date(starttime)=date('"+str(start_time.date())+"')"
     cur.execute(sql)
     results = cur.fetchall()
@@ -144,18 +153,6 @@ def ReturnRequest(dl_ord,mode):
          sql="insert into "+table_name+" values (str_to_date('"+str(d)+"','%Y-%m-%d %H:%i:%s'),'"+a+"',"+str(e)+",'"+ostart+"-"+dstart+"',"+str(second_order)+",'"+dt.datetime.strftime(dt.datetime.now(),'%Y-%m-%d %H:%M:%S')+"','-1',0)"
          cur.execute(sql)
          conn.commit()
-
-    sql = "select direction from section_info where ostation='" + ostart + "' and dstation='" + dstart + "'"
-    cur.execute(sql)
-    oddirect = cur.fetchall()
-
-    for raw in oddirect:
-        directionstr = raw[0]
-
-    outputstr = "当前OD不在运营线路中"
-    task_json = {"status": 304, "direction": int(directionstr), "suggest": str(outputstr)}
-    task = json.dumps(task_json, ensure_ascii=False)
-    return task
 
     cur.close()
     conn.close()
