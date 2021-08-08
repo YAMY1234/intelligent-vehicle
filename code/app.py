@@ -971,7 +971,7 @@ if __name__ == '__main__':
     time_count = 0
     global mode
     try:
-        mode="debug"
+        mode="release"
         app.run(host='0.0.0.0', port=80)
     except:
         mode = "debug"
