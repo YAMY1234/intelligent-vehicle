@@ -102,17 +102,28 @@ def log_writer(route, info, res):
                 stamp = int(time.time())
                 log = "################################################################"
                 log = log + time.strftime("%Y-%m-%d %H:%M",
-                                          time.localtime(stamp)) + "\n" + "请求路由:\n" + route + "\n"
+                                            time.localtime(stamp)) + "\n" + "请求路由:\n" + route + "\n"
                 log+="请求信息内容:\n" + json.dumps(info, sort_keys=True, indent=4, separators=(',', ':'))
-                log+="\n返回信息内容:\n" + str(res[0:], encoding="utf-8")+ "\n\n"#sort_keys=True ,  indent=4 ,  separators=(',', ':')
+                file.write(log)
+
+                file.write("\n\n")
+                file.write("\n返回信息内容:\n" )
+                try:
+                    file.write(str(res,encoding="utf-8"))
+                except:
+                    file.write(str(res))
+                log=""
+                print(car_info)
                 concise_car_info=dict()
                 for car in car_info.keys():
                     concise_car_info[car]=dict()
-                    concise_car_info[car]['status']=car_info[car]['status']
-                    concise_car_info[car]['busy']=car_info[car]['busy']
+                    try:
+                        concise_car_info[car]['status']=car_info[car]['status']
+                        concise_car_info[car]['busy']=car_info[car]['busy']
+                    except:
+                        a=1
                 log += "----------当前车辆状态：\n CAR_GROUP_DATA:\n" + str(car_group_data)
                 log+="\nCAR_INO\n" + json.dumps(concise_car_info, sort_keys=True, indent=4, separators=(',', ':'))
-                file.write("\n\n")
                 file.write(log)
                 file.close()
                 return "ok"
@@ -122,6 +133,7 @@ def log_writer(route, info, res):
     except:
         print("LOG OPEN PROBLEM!!!!")
         return "NOT OK"
+
 
 
 
@@ -236,9 +248,9 @@ def get_name():
                 else:
                     begin_id = len(tasks_all) + len(tasks)
                 print(ticket)
-                tasks = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id,
+                tasks,new_time_count = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id,
                                      tickets,time_count)
-                time_count+=1
+                time_count = new_time_count
                 for i in range(len(cars)):
                     status.append(1)
             else:
@@ -959,7 +971,7 @@ if __name__ == '__main__':
     time_count = 0
     global mode
     try:
-        mode="release"
+        mode="debug"
         app.run(host='0.0.0.0', port=80)
     except:
         mode = "debug"

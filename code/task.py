@@ -8,9 +8,6 @@ import random
 
 def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id, tickets, time_count):
     oId = ticket['correspondOrderId']
-    #u_id = []
-    #for o in oId:
-        #u_id = u_id + tickets[o]['u_ids']
     flag = 0 
     for num, car in enumerate(cars):
         task = dict()
@@ -26,9 +23,14 @@ def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_in
         task['startTime'] = ticket['startTime']
 
         task['travelPlat'] = ",".join(road_info[task['fromId']][task['toId']]['route']) + "," + task['toId']
-        task['correspondOrderId'] = ','.join(ticket['correspondOrderId'])
-        correspondNumber = [id + ':' + str(tickets[id]['ticketNumber']) for id in ticket['correspondOrderId']]
+        correspondNumber=[]
+        correspondOrderId=[]
+        for i in range(int(seat[num])):
+            correspondNumber.append(oId[i]+":1")
+            correspondOrderId.append(oId[i])
+        oId = oId[i:]
         task['correspondNumber'] = ','.join(correspondNumber)
+        task['correspondOrderId']=','.join(correspondOrderId)
 
         task['parkId'] = 0
         task['parkName'] = 0
@@ -59,11 +61,12 @@ def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_in
         # 行程号生成代码
         task['travelId'] = 'XC07550' + '{0:%Y%m%d%H%M%S}'.format(datetime.datetime.now())[2:] + "".join(
             str(time_count).zfill(3))
+        time_count+=1
         #task['u_ids'] = u_id[flag: flag+task['itNumber']]
         tasks[str(task['travelId'])] = task
         flag += task['itNumber']
     
-    return tasks
+    return tasks,time_count
 
 
 
