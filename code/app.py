@@ -659,19 +659,59 @@ def delete_ticket():
                         car_info[carId]['status'] = 0
                         del tasks_all[n]
                         break
-                # else:
-                # for ticket in tickets:
-                # for user in task_user[carId]:
-                # if user in ticket['orderUserId'].split(','):
-                #    task['correspondNumber'][ticket['oId']]-=1
-                #    if task['correspondNumber'][ticket['oId']]<=0:
-                #        del task['correspondNumber'][ticket['oId']]
-                #    break
-
             tasks_all[n] = task
             return_info.append({'status': status, 'task': task, 'correspondSeatId': correspondSeatId})
         log_writer("/algorithmC", request.json, json.dumps(return_info))
         return json.dumps(return_info)
+# def delete_ticket():
+#     if request.method == 'POST':
+#         tickets = request.json
+#         print(request.json)
+#         return_info = []
+#         all_user = []
+#         for ticket in tickets:
+#             all_user = ticket['orderUserId'].split(',')
+#         task_user = dict()
+#         for user in all_user:
+#             for x, arrange in enumerate(all_arranges):
+#                 temp = []
+#                 for n, user_info in enumerate(arrange['correspondSeatId']):
+#                     if user == user_info['u_id']:
+#                         if arrange['carId'] not in task_user.keys():
+#                             task_user[arrange['carId']] = [user]
+#                         else:
+#                             task_user[arrange['carId']].append(user)
+#                         continue
+#                     temp.append(n)
+#                 remain_user = [all_arranges[x]['correspondSeatId'][i] for i in temp]
+#                 all_arranges[x]['correspondSeatId'] = remain_user
+#         print(task_user)
+#         for carId in task_user.keys():
+#             for arrange in all_arranges:
+#                 if arrange['carId'] == carId:
+#                     correspondSeatId = arrange['correspondSeatId']
+#             status = 1
+#             for n in tasks_all.keys():
+#                 task = tasks_all[n]
+#                 if task['carId'] == carId:
+#                     task['itNumber'] -= len(task_user[carId])
+#                     if task['itNumber'] <= 0:
+#                         car_info[carId]['status'] = 0
+#                         del tasks_all[n]
+#                         break
+#                 # else:
+#                 # for ticket in tickets:
+#                 # for user in task_user[carId]:
+#                 # if user in ticket['orderUserId'].split(','):
+#                 #    task['correspondNumber'][ticket['oId']]-=1
+#                 #    if task['correspondNumber'][ticket['oId']]<=0:
+#                 #        del task['correspondNumber'][ticket['oId']]
+#                 #    break
+#
+#             tasks_all[n] = task
+#             return_info.append({'status': status, 'task': task, 'correspondSeatId': correspondSeatId})
+#         log_writer("/algorithmC", request.json, json.dumps(return_info))
+#         return json.dumps(return_info)
 
 
 @app.route('/marshalling', methods=['GET', 'POST', 'DELECT'])

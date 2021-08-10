@@ -31,8 +31,8 @@ class messageloader:
             for i in nopass:
                 if dis[idx]['dist'] + road_info[idx][i]['dist'] < dis[i]['dist']:
                     dis[i]['dist'] = dis[idx]['dist'] + road_info[idx][i]['dist']
-                    dis[i]['route'] = dis[idx]['route'] + [idx]
-                    
+                    dis[i]['route']=dis[idx]['route'] + road_info[idx][i]['route']
+
         road_info[start] = dis
         return road_info
 
