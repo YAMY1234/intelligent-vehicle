@@ -35,17 +35,17 @@ def ReturnRequest(dl_ord,mode):
     sql = "select direction from section_info where ostation='" + ostart + "' and dstation='" + dstart + "'"
     cur.execute(sql)
     oddirect = cur.fetchall()
-    directionstr = -1
+    directionstr = 1
     for raw in oddirect:
         directionstr = raw[0]
 
     if (zuoweibuffer==0):
-       outputstr="暂时没有车辆上线运营，请稍后预约"           
+       outputstr="暂时没有车辆上线运营，请稍后预约"
        task_json={"status":302,"direction":int(directionstr),"suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
     if (e>zuoweibuffer):
-       outputstr="单笔人数过多,您需要减少订单人数至"+str(zuoweibuffer)+"人"           
+       outputstr="单笔人数过多,您需要减少订单人数至"+str(zuoweibuffer)+"人"
        task_json={"status":302,"direction":int(directionstr),"suggest":str(outputstr)}
        task = json.dumps(task_json, ensure_ascii=False)
        return task
@@ -63,7 +63,7 @@ def ReturnRequest(dl_ord,mode):
     results = cur.fetchall()
 # 处理历史订单记录时间、人数、订单号、od
     start_time_e=None
-    oidnum_e=0   
+    oidnum_e=0
     oidlist_e=""
     od_e=""
     second_e=-1
@@ -73,43 +73,45 @@ def ReturnRequest(dl_ord,mode):
     coutDingdan=0
     breakout=-1
     addflag=False
-
+    samecaraddflag=False
     mintimesel=start_time.hour*18001
     mintimesat=start_time.hour*18001
 
 #运力简单判断，1800取值应为最不利情况调车+本次行程时间
     for raw in results:
-        start_time_e=raw [4]      
+        start_time_e=raw [4]
         second_e=raw [3]
         oidnum_e=raw [1]
         oidlist_e=raw [2]
-        od_e=raw [0] 
-        charternum=raw[5] 
+        od_e=raw [0]
+        charternum=raw[5]
         if(charternum!=0):
             totalnum+=charternum
             coutDingdan+=1
-        if(second_e==second_order and charternum==0): 
+        if(second_e==second_order and charternum==0):
             totalnum+=oidnum_e
-            coutDingdan+=math.ceil(oidnum_e/3)        
-            if(od_e==ostart+"-"+dstart): 
+            coutDingdan+=math.ceil(oidnum_e/3)
+            if(od_e==ostart+"-"+dstart):
                 coutDingdan-=math.ceil(oidnum_e/3)
-                coutDingdan+=math.ceil((oidnum_e+e)/3)-1               
+                coutDingdan+=math.ceil((oidnum_e+e)/3)-1
                 breakout=findex
-                addflag=True   
+                addflag=True
+                if(math.ceil(oidnum_e/3)==math.ceil((oidnum_e+e)/3)):
+                        samecaraddflag=True
             if((od_e.split("-")[0]==ostart or od_e.split("-")[1]==dstart) and addflag==False):
                 mintimesat=0
-                breakout=findex   
-        if(abs(second_order-second_e)<=1800 and second_e!=second_order and charternum==0):               
+                breakout=findex
+        if(abs(second_order-second_e)<=1800 and second_e!=second_order and charternum==0):
             totalnum+=oidnum_e
-            coutDingdan+=math.ceil(oidnum_e/3)     
-            if(od_e==ostart+"-"+dstart and mintimesel>abs(second_order-second_e) and addflag==False):                
+            coutDingdan+=math.ceil(oidnum_e/3)
+            if(od_e==ostart+"-"+dstart and mintimesel>abs(second_order-second_e) and addflag==False):
                  breakout=findex
                  mintimesel=second_order-second_e
             if((ostart in od_e or dstart in od_e) and mintimesat>abs(second_order-second_e) and mintimesel==start_time.hour*18001 and addflag==False):
                  mintimesat=second_order-second_e
                  breakout=findex
-        findex+=1       
-    if(start_time_e!=None):        
+        findex+=1
+    if(start_time_e!=None and samecaraddflag==False):
         if(totalnum+e>maxzuoweibuffer):
             cur.close()
             conn.close()
