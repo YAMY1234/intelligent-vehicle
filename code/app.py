@@ -55,9 +55,7 @@ app_car_info, app_city_info, app_platform_info, road_info = dataloader('data/dat
 car_info = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).makefakecarpos()
 car_group_data = fakedatamaker(car_num, lat_scale, lon_scale, app_platform_info).car_group_data()
 
-
 global time_count
-
 
 with open('data/app_platform_info.pkl', 'rb') as f:
     app_platform_info = pickle.load(f)
@@ -79,6 +77,7 @@ init_group_car(car_group_data)
 print(car_group_data)
 print(car_info)
 
+
 # class MyEncoder(json.JSONEncoder):
 #     def default(self, obj):
 #         if isinstance(obj, np.ndarray):
@@ -93,6 +92,7 @@ class MyEncoder(json.JSONEncoder):
             return str(obj, encoding='utf-8');
         return json.JSONEncoder.default(self, obj)
 
+
 ############################### 日志编写函数  ########################
 def log_writer(route, info, res):
     try:
@@ -102,28 +102,28 @@ def log_writer(route, info, res):
                 stamp = int(time.time())
                 log = "################################################################"
                 log = log + time.strftime("%Y-%m-%d %H:%M",
-                                            time.localtime(stamp)) + "\n" + "请求路由:\n" + route + "\n"
-                log+="请求信息内容:\n" + json.dumps(info, sort_keys=True, indent=4, separators=(',', ':'))
+                                          time.localtime(stamp)) + "\n" + "请求路由:\n" + route + "\n"
+                log += "请求信息内容:\n" + json.dumps(info, sort_keys=True, indent=4, separators=(',', ':'))
                 file.write(log)
 
                 file.write("\n\n")
-                file.write("\n返回信息内容:\n" )
+                file.write("\n返回信息内容:\n")
                 try:
-                    file.write(str(res,encoding="utf-8"))
+                    file.write(str(res, encoding="utf-8"))
                 except:
                     file.write(str(res))
-                log=""
+                log = ""
                 print(car_info)
-                concise_car_info=dict()
+                concise_car_info = dict()
                 for car in car_info.keys():
-                    concise_car_info[car]=dict()
+                    concise_car_info[car] = dict()
                     try:
-                        concise_car_info[car]['status']=car_info[car]['status']
-                        concise_car_info[car]['busy']=car_info[car]['busy']
+                        concise_car_info[car]['status'] = car_info[car]['status']
+                        concise_car_info[car]['busy'] = car_info[car]['busy']
                     except:
-                        a=1
+                        a = 1
                 log += "----------当前车辆状态：\n CAR_GROUP_DATA:\n" + str(car_group_data)
-                log+="\nCAR_INO\n" + json.dumps(concise_car_info, sort_keys=True, indent=4, separators=(',', ':'))
+                log += "\nCAR_INO\n" + json.dumps(concise_car_info, sort_keys=True, indent=4, separators=(',', ':'))
                 file.write(log)
                 file.close()
                 return "ok"
@@ -133,8 +133,6 @@ def log_writer(route, info, res):
     except:
         print("LOG OPEN PROBLEM!!!!")
         return "NOT OK"
-
-
 
 
 ## 1 将车辆信息和站点绑定
@@ -240,7 +238,8 @@ def get_name():
         for name in new_tickets.keys():
             ticket = new_tickets[name]
             start_pos = ticket['fromId']
-            cars, seat = get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_group_data)
+            start_time= ticket['startTime']
+            cars, seat = get_cars(car_info, ticket, start_pos,start_time, road_info, app_platform_info, car_group_data)
             print(cars, seat, ticket['ticketNumber'])
             if cars:
                 if len(tasks) == 0:
@@ -248,15 +247,14 @@ def get_name():
                 else:
                     begin_id = len(tasks_all) + len(tasks)
                 print(ticket)
-                tasks,new_time_count = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id,
-                                     tickets,time_count)
+                tasks, new_time_count = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info,
+                                                     begin_id,
+                                                     tickets, time_count)
                 time_count = new_time_count
                 for i in range(len(cars)):
                     status.append(1)
             else:
-                # return 'car is not enough'
                 status.append(3)
-            # car_info_update(cars, car_info)
 
         final_info = []
         flag = 0
@@ -265,7 +263,7 @@ def get_name():
         final_task['line'] = []
         for num, sta in enumerate(status):
             if sta == 3:
-                if 1 not in status:#如果说有车可以派车那就不用管了
+                if 1 not in status:  # 如果说有车可以派车那就不用管了
                     final_task['status'] = 3
             else:
                 final_task['status'] = 1
@@ -274,7 +272,7 @@ def get_name():
         final_info = final_task
         add_new_task_to_all(tasks, tasks_all)
         result = json.dumps(final_info, ensure_ascii=False).encode('utf8')
-        log_writer("/algorithm", request.json, json.dumps(final_info, ensure_ascii=False,indent=4).encode('utf8'))
+        log_writer("/algorithm", request.json, json.dumps(final_info, ensure_ascii=False, indent=4).encode('utf8'))
         return result
 
 
@@ -347,15 +345,15 @@ def carStatusup():
                 car_id = car['carId']
                 if car_id not in car_info.keys():
                     return json.dumps({"status": 0})
-                car_info[car_id]['busy'] = 0 # 这个我不知道有没有用了
                 temp_car_info = car_info[car_id]
                 temp_car_info['lng'] = car['carLoc'].split(',')[0]
                 temp_car_info['lat'] = car['carLoc'].split(',')[1]
-                temp_car_info['status'] = abs(1 - car['carStatus'])
                 temp_car_info['driverId'] = car['driverId']
-                temp_car_info['busy'] = 0
-                if temp_car_info['status'] == 1:
-                    temp_car_info['busy'] = 1
+                if temp_car_info['status'] != abs(1 - car['carStatus']):  # 如果两个状态不相同，那么busy状态更新有效，否则busy状态更新无效
+                    temp_car_info['status'] = abs(1 - car['carStatus'])
+                    temp_car_info['busy'] = 0
+                    if temp_car_info['status'] == 1:
+                        temp_car_info['busy'] = 1
                 car_info[car_id] = temp_car_info
                 if car['carStatus'] == 1 and car_id not in car_group_data.keys():
                     car_group_data[car_id] = dict()
@@ -378,6 +376,7 @@ def carStatusup():
         except:
             log_writer("/carStatusup", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
+
 
 # "输入参数
 # （数组）"		数据类型	数据含义	实例(备注)
@@ -410,6 +409,8 @@ def travelStatusChange():
         except:
             log_writer("/travelStatusChange", request.json, json.dumps({"status": 0}))
             return json.dumps({"status": 0})
+
+
 '''
 {
     "altitude":155,
@@ -424,15 +425,17 @@ def travelStatusChange():
 
 '''
 
-@app.route('/carLocation' , methods=['GET', 'POST', 'DELECT'])
+
+@app.route('/carLocation', methods=['GET', 'POST', 'DELECT'])
 def carpos_update():
     if request.method == 'POST':
         try:
             new_car_info = request.json
             car_id = str(new_car_info['vehicleId'])
             if car_id not in car_info.keys() or car_id not in car_group_data.keys():
-                log_writer("/carLocation", request.json, json.dumps({"status": 0}))
+                # log_writer("/carLocation", request.json, json.dumps({"status": 0}))
                 return json.dumps({"status": 0})
+            temp_car_info = car_info[car_id]
             temp_car_info = car_info[car_id]
             temp_car_info['lng'] = new_car_info['lng']
             temp_car_info['lat'] = new_car_info['lat']
@@ -442,6 +445,7 @@ def carpos_update():
             return json.dumps({"status": 1})
         except:
             return json.dumps({"status": 0})
+
 
 @app.route('/test', methods=['GET', 'POST', 'DELECT'])
 def test():
@@ -474,9 +478,10 @@ def ReturnRequest1():
         global mode
         print(request.json)
         tasks_in = request.json
-        res = ReturnRequest(tasks_in,mode)
-        log_writer('/algorithmD',request.json,res)
+        res = ReturnRequest(tasks_in, mode)
+        log_writer('/algorithmD', request.json, res)
         return res
+
 
 # 司机信息更新系统接口
 # 接口地址			http://47.111.139.187:5000/driverinfo_update
@@ -663,6 +668,8 @@ def delete_ticket():
             return_info.append({'status': status, 'task': task, 'correspondSeatId': correspondSeatId})
         log_writer("/algorithmC", request.json, json.dumps(return_info))
         return json.dumps(return_info)
+
+
 # def delete_ticket():
 #     if request.method == 'POST':
 #         tickets = request.json
@@ -804,7 +811,7 @@ def chartercar():
                     begin_id = len(tasks_all) + len(tasks)
                     print(ticket)
                 tasks = arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_info, begin_id,
-                                     tickets,time_count)
+                                     tickets, time_count)
                 status.append(201)
             else:
                 # return 'car is not enough'
@@ -848,14 +855,12 @@ def chartercar():
 
 @app.route('/CancelCharterCar', methods=['GET', 'POST', 'DELECT'])
 def CancelCharterCar2():
-    if request.method=='POST':
+    if request.method == 'POST':
         global mode
         print(request.json)
-        res = CancelCharterCar(request.json,mode)
+        res = CancelCharterCar(request.json, mode)
         log_writer('/CancelCharterCar', request.json, res)
         return res
-
-
 
 
 # def CancelCharterCar():
@@ -1011,7 +1016,7 @@ if __name__ == '__main__':
     time_count = 0
     global mode
     try:
-        mode="release"
+        mode = "release"
         app.run(host='0.0.0.0', port=80)
     except:
         mode = "debug"

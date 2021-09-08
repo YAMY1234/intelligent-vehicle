@@ -1,5 +1,7 @@
 import numpy as np
 from process import *
+import datetime
+import time
 
 ''' 
 输入:
@@ -123,8 +125,19 @@ cars：最后需要的车辆信息
 说明：
 根据车辆距离和之前计算得出的车辆位置得出具体需要调度的车辆。
 '''
+
+def timeEmitate(dist,start_time):
+    # stamp = int(time.time())
+    # now_time=time.strftime("%Y-%m-%d %H:%M",time.localtime(stamp))
+    now_time=time.time()
+    start_time='2021-09-08 15:07:18'
+    start_time = time.mktime(time.strptime(start_time, '%Y-%m-%d %H:%M:%S'))
+    t_real=float(start_time)-float(now_time)
+    t_est=dist/(30/3.6)
+    return t_est<t_real
+
 ### 根据站点信息的地图进行匹配
-def select_car(car_info, num, road_info, app_platform_info, start_pos):
+def select_car(car_info, num, road_info, app_platform_info, start_pos,start_time):
     car_dist_info = dict()
     for car in car_info.keys():
         if 'busy' not in car_info[car].keys():
@@ -133,10 +146,13 @@ def select_car(car_info, num, road_info, app_platform_info, start_pos):
             car_lat = car_info[car]['lat']
             car_lng = car_info[car]['lng']
             dist = compute_dist_map(road_info, app_platform_info, car_lat, car_lng, start_pos)
+            # 在这里做一个判断哈，就是说当前的时间与票预期的时间进行一个比较哈
+            # if(timeEmitate(dist,start_time)):
+            #     car_dist_info[car] = dist
             car_dist_info[car] = dist
     print(car_dist_info)
     car_dist_info = dict(sorted(car_dist_info.items(), key = lambda x:x[1], reverse=False))
-    #print(car_dist_info)
+    # print(car_dist_info)
     cars = list(car_dist_info.keys())[:num]
     for car in cars:
         car_info[car]['busy']=1 # 新增这个，避免重复派车
@@ -157,7 +173,7 @@ cars：最后需要的车辆信息
 '''
 
 
-def get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_group_data):
+def get_cars(car_info, ticket, start_pos, start_time,road_info, app_platform_info, car_group_data):
     empty_car_4 = dict()
     # empty_car_6= dict()
     empty_car_14 = dict()
@@ -166,8 +182,6 @@ def get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_grou
     for car in car_info.keys():
         if (car in car_group_data.keys()) and car_info[car]['seat'] == 4:
             empty_car_4[car] = car_info[car]
-        # elif car_info[car]['status'] == 0 and car_info[car]['seat'] == 6:
-        # empty_car_6[car] = car_info[car]
         elif (car in car_group_data.keys()) and car_info[car]['seat'] == 14:
             empty_car_14[car] = car_info[car]
         elif (car in car_group_data.keys()) and car_info[car]['seat'] == 22:
@@ -188,11 +202,11 @@ def get_cars(car_info, ticket, start_pos, road_info, app_platform_info, car_grou
 
     if car_book_info:
         if car_book_info[4]['num'] > 0:
-            cars = cars + select_car(empty_car_4, car_book_info[4]['num'], road_info, app_platform_info, start_pos)
+            cars = cars + select_car(empty_car_4, car_book_info[4]['num'], road_info, app_platform_info, start_pos,start_time)
         if car_book_info[14]['num'] > 0:
-            cars = cars + select_car(empty_car_14, car_book_info[14]['num'], road_info, app_platform_info, start_pos)
+            cars = cars + select_car(empty_car_14, car_book_info[14]['num'], road_info, app_platform_info, start_pos,start_time)
         if car_book_info[22]['num'] > 0:
-            cars = cars + select_car(empty_car_22, car_book_info[22]['num'], road_info, app_platform_info, start_pos)
+            cars = cars + select_car(empty_car_22, car_book_info[22]['num'], road_info, app_platform_info, start_pos,start_time)
 
         seat = car_book_info[4]['seat_info'] + car_book_info[14]['seat_info'] + car_book_info[22]['seat_info']
         return cars, seat
