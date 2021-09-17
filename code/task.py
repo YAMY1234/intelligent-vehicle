@@ -28,7 +28,7 @@ def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_in
         for i in range(int(seat[num])):
             correspondNumber.append(oId[i]+":1")
             correspondOrderId.append(oId[i])
-        oId = oId[i:]
+        oId = oId[i+1:] # 之前是i出问题，现在修改之后应该是i+1没问题了
         task['correspondNumber'] = ','.join(correspondNumber)
         task['correspondOrderId']=','.join(correspondOrderId)
 

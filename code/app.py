@@ -542,9 +542,8 @@ def seat_allocation():
             seat_arrange = arrange_seat_2_seat(ticket, task, car_seat_info, car_info)
             arranges.append(seat_arrange)
             all_arranges.append(seat_arrange)
-    log_writer("/seat_allocation", request.json, json.dumps({"status": 1}))
+    # log_writer("/seat_allocation", request.json, json.dumps(arranges))
     return json.dumps(arranges)
-
 
 # 加入行程算法系统接口
 # 接口地址						http://47.111.139.187:5000/algorithmA

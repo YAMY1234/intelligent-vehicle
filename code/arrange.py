@@ -1,6 +1,7 @@
 import numpy as np
 from process import *
 import datetime
+from math import sin, asin, cos, radians, fabs, sqrt
 import time
 
 ''' 
@@ -97,9 +98,28 @@ def select_car1(car_info, num, start_pos):
 
     return cars
 
+###########################################################################################
+def hav(theta):
+    s = sin(theta / 2)
+    return s * s
 
+def get_distance_hav(lat0, lng0, lat1, lng1):
+    "用haversine公式计算球面两点间的距离。"
+    # 经纬度转换成弧度
+    EARTH_RADIUS = 6371
+    lat0 = radians(float(lat0))
+    lat1 = radians(float(lat1))
+    lng0 = radians(float(lng0))
+    lng1 = radians(float(lng1))
 
-def compute_dist_map(road_info, app_platform_info, car_lat, car_lng, start_pos):
+    dlng = fabs(lng0 - lng1)
+    dlat = fabs(lat0 - lat1)
+    h = hav(dlat) + cos(lat0) * cos(lat1) * hav(dlng)
+    distance = 2 * EARTH_RADIUS * asin(sqrt(h))
+    return distance
+###########################################################################################
+
+def compute_dist_map(start_pos,road_info, app_platform_info, car_lat, car_lng):
     dist = np.inf
     tar = ''
     for station in app_platform_info.keys():
@@ -110,7 +130,12 @@ def compute_dist_map(road_info, app_platform_info, car_lat, car_lng, start_pos):
             dist = temp
             tar = station
     dist = road_info[tar][start_pos]['dist']
+    return dist
 
+def compute_real_dist(app_platform_info, car_lat, car_lng, start_pos):
+    plat_lat=app_platform_info[start_pos]['latitude']
+    plat_lng = app_platform_info[start_pos]['longitude']
+    dist=get_distance_hav(plat_lng,plat_lat,car_lng,car_lat)
     return dist
 
 '''
@@ -127,10 +152,8 @@ cars：最后需要的车辆信息
 '''
 
 def timeEmitate(dist,start_time):
-    # stamp = int(time.time())
-    # now_time=time.strftime("%Y-%m-%d %H:%M",time.localtime(stamp))
     now_time=time.time()
-    start_time='2021-09-08 15:07:18'
+    # start_time='2021-09-15 15:07:18'
     start_time = time.mktime(time.strptime(start_time, '%Y-%m-%d %H:%M:%S'))
     t_real=float(start_time)-float(now_time)
     t_est=dist/(30/3.6)
@@ -145,9 +168,11 @@ def select_car(car_info, num, road_info, app_platform_info, start_pos,start_time
         if car_info[car]['busy']==0 and ('status' in car_info[car].keys() and car_info[car]['status']==0): # 新增这个，避免重复派车
             car_lat = car_info[car]['lat']
             car_lng = car_info[car]['lng']
-            dist = compute_dist_map(road_info, app_platform_info, car_lat, car_lng, start_pos)
+            dist = compute_dist_map(start_pos,road_info, app_platform_info, car_lat, car_lng)
+            realdist=compute_real_dist(app_platform_info, car_lat, car_lng, start_pos)
+            realdist=realdist*1000
             # 在这里做一个判断哈，就是说当前的时间与票预期的时间进行一个比较哈
-            # if(timeEmitate(dist,start_time)):
+            # if(timeEmitate(realdist,start_time)):
             #     car_dist_info[car] = dist
             car_dist_info[car] = dist
     print(car_dist_info)
@@ -180,7 +205,7 @@ def get_cars(car_info, ticket, start_pos, start_time,road_info, app_platform_inf
     empty_car_22 = dict()
     # 修改：在这里面就去掉30分钟之内无法进行派车的车辆
     for car in car_info.keys():
-        if (car in car_group_data.keys()) and car_info[car]['seat'] == 4:
+        if (car in car_group_data.keys()) and car_info[car]['seat'] == 4:# 这里其实涉及不到busy不busy的问题，所以我后面写的这个东西其实和前面座位的算法并不是完全冲突的
             empty_car_4[car] = car_info[car]
         elif (car in car_group_data.keys()) and car_info[car]['seat'] == 14:
             empty_car_14[car] = car_info[car]
