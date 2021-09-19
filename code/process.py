@@ -12,7 +12,6 @@ def compute_dist(long1, lat1, long2, lat2):
     sb2 = math.sin(b / 2.0)
     return 2 * R * math.asin( math.sqrt(sa2 * sa2 + math.cos(lat1) * math.cos(lat2) * sb2 * sb2))
 
-
 def car_arrange(num_people):
     return None
 
