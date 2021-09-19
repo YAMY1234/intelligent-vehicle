@@ -115,6 +115,7 @@ def log_writer(route, info, res):
                 log = ""
                 print(car_info)
                 concise_car_info = dict()
+                a=0
                 for car in car_info.keys():
                     concise_car_info[car] = dict()
                     try:
@@ -123,7 +124,10 @@ def log_writer(route, info, res):
                     except:
                         a = 1
                 log += "----------当前车辆状态：\n CAR_GROUP_DATA:\n" + str(car_group_data)
-                log += "\nCAR_INO\n" + json.dumps(concise_car_info, sort_keys=True, indent=4, separators=(',', ':'))
+                if a==0:
+                    log += "\nCAR_INO\n" + json.dumps(concise_car_info, sort_keys=True, indent=4, separators=(',', ':'))
+                else:
+                    log += "\nCAR_INO\n" + json.dumps(car_info, sort_keys=True, indent=4, separators=(',', ':'))
                 file.write(log)
                 file.close()
                 return "ok"
@@ -305,6 +309,8 @@ def carinfo_update():
                 temp_car_info['seat'] = car['carSeatNumber'] - 1
                 temp_car_info['carType'] = car['carType']
                 temp_car_info['carOperatonStatus'] = car['carOperatonStatus']
+                temp_car_info['status']=0
+                temp_car_info['busy']=0
                 # temp_car_info['driverId'] = car['driverId']
                 car_info[car['carId']] = temp_car_info
                 init_group_car(car_group_data)
@@ -349,6 +355,7 @@ def carStatusup():
                 temp_car_info['lng'] = car['carLoc'].split(',')[0]
                 temp_car_info['lat'] = car['carLoc'].split(',')[1]
                 temp_car_info['driverId'] = car['driverId']
+                temp_car_info['status'] = abs(1 - car['carStatus'])
                 if temp_car_info['status'] != abs(1 - car['carStatus']):  # 如果两个状态不相同，那么busy状态更新有效，否则busy状态更新无效
                     temp_car_info['status'] = abs(1 - car['carStatus'])
                     temp_car_info['busy'] = 0
