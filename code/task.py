@@ -35,8 +35,8 @@ def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_in
         task['parkId'] = 0
         task['parkName'] = 0
         task['distance'] = road_info[task['fromId']][task['toId']]['dist']
-        task['expectedTime'] = task['distance']/18
-        task['arriveTime'] = task['distance']/18
+        task['expectedTime'] = task['distance']/9
+        task['arriveTime'] = task['distance']/9
         task['modifyOrderId'] = ''
         task['warning'] = ''
 
@@ -47,7 +47,7 @@ def arrange_task(tasks, cars, seat, car_info, ticket, road_info, app_platform_in
         for it in range(len(aa)-1):
                 one=str(aa[it])
                 two=str(aa[it+1])
-                delta=road_info[one][two]['dist']/18               
+                delta=road_info[one][two]['dist']/9
                 offset = datetime.timedelta(seconds=delta)
                 t_change=t_change+offset
                 t_str=datetime.datetime.strftime(t_change, '%Y-%m-%d %H:%M:%S')

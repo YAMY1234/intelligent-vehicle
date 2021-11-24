@@ -156,6 +156,40 @@ def print_roadinfo():
     return json.dumps({"status": 1, "suggust": 'ok'})
 
 
+def updata_databaseinfo(road_info):
+    table_name = "section_info_sz"
+    # 构建数据库链接
+    conn = pymysql.connect(host="rm-bp164444922wma90vwo.mysql.rds.aliyuncs.com", user="hztest", password="Hjjj0842", db="hztestdb", charset="utf8")
+    cur = conn.cursor()
+    sql = 'delete from ' + table_name
+    cur.execute(sql)
+    conn.commit()
+    sql=""
+    for ostation in road_info:
+        for dstation in road_info[ostation]:
+            if ostation==dstation:
+                continue
+            if ostation>dstation:
+                direction = '0'
+            else:
+                direction = '1'
+            route=str(road_info[ostation][dstation]['route'])
+            route=route.replace("'","")
+            print(route)
+            distance=str(road_info[ostation][dstation]['dist'])
+            sql = "insert into " + table_name + " values ('"\
+                  + ostation + "','"\
+                  + dstation + "','" \
+                  + direction + "','"\
+                  + route + "','"\
+                  + distance + "'" \
+                  +")"
+            # print(sql)
+            cur.execute(sql)
+    conn.commit()
+    cur.close()
+    conn.close()
+
 # 路网信息更新系统接口
 @app.route('/info_update', methods=['GET', 'POST', 'DELECT'])
 def info_update():
@@ -180,6 +214,7 @@ def info_update():
             with open('data/road_info.pkl', 'wb') as f:
                 pickle.dump(road_info, f, pickle.HIGHEST_PROTOCOL)
             f.close()
+            updata_databaseinfo(road_info)
             log_writer("info_update", request.json, json.dumps({"status": 1, "suggust": ''}))
             return json.dumps({"status": 1, "suggust": ''})
         except:
@@ -309,9 +344,13 @@ def carinfo_update():
                 temp_car_info['seat'] = car['carSeatNumber'] - 1
                 temp_car_info['carType'] = car['carType']
                 temp_car_info['carOperatonStatus'] = car['carOperatonStatus']
-                temp_car_info['status']=0
-                temp_car_info['busy']=0
-                # temp_car_info['driverId'] = car['driverId']
+                if car['carId'] in car_info.keys():# 增加一个判断，增强鲁棒性，万一之前carinfo为空呢
+                    if car_info[car['carId']]:
+                        if "status" not in car_info[car['carId']].keys():
+                            temp_car_info['status']=0
+                        if "busy" not in car_info[car['carId']].keys():
+                            temp_car_info['busy']=0
+                    # temp_car_info['driverId'] = car['driverId']
                 car_info[car['carId']] = temp_car_info
                 init_group_car(car_group_data)
                 print(car_info)

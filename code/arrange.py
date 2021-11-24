@@ -172,9 +172,9 @@ def select_car(car_info, num, road_info, app_platform_info, start_pos,start_time
             realdist=compute_real_dist(app_platform_info, car_lat, car_lng, start_pos)
             realdist=realdist*1000
             # 在这里做一个判断哈，就是说当前的时间与票预期的时间进行一个比较哈
-            # if(timeEmitate(realdist,start_time)):
-            #     car_dist_info[car] = dist
-            car_dist_info[car] = dist
+            if(timeEmitate(realdist,start_time)):
+                car_dist_info[car] = dist
+            # car_dist_info[car] = dist
     print(car_dist_info)
     car_dist_info = dict(sorted(car_dist_info.items(), key = lambda x:x[1], reverse=False))
     # print(car_dist_info)
