@@ -1,59 +1,65 @@
-# 产品介绍
+<div align="right">
+  Language:
+  🇺🇸
+  <a title="Chinese" href="/README_CN.md">🇨🇳</a>
+</div>
 
-地铁运营成本高，公交出行速度慢 城市交通“痛点”如何解决？
+# Product introduction
 
-近期在嘉定沪宜公路正式开通的智慧车列交通系统示范线给出了新的解决方案。该方案用智能网联、大数据、人工智能等前沿科技，把传统城市公共交通资源“蝶变”成新一代中、大运量城市骨干交通系统，融公路交通灵活性与轨道交通大运量优势于一体，将更安全、舒适、高效、环保。
+Metro operation cost is high, bus travel speed is slow, urban traffic "pain points" how to solve?
 
-![img](./pic_source/clip_image001.png)
+The smart train transportation system demonstration line officially opened on Jiading Huyi Highway recently gives a new solution. The solution uses cutting-edge technologies such as intelligent network connection, Big data, and artificial intelligence to "butterfly" traditional urban public transportation resources into a new generation of medium and large-volume urban backbone transportation systems, integrating the flexibility of highway transportation with the advantages of large-volume rail transportation, which will be safer, more comfortable, efficient and environmentally friendly.
 
-智慧车列已在嘉定试行
+<img src="E:\学习备份\intelligent-vehicle\clip_image001.png" alt="img" style="zoom:50%;" />
 
-海岸君近日在嘉定新城发现，沪宜公路上的公交专用车道上，与“公交专用车道”并排提醒的，还有一行字：“多乘员车道。”
+Smart trains have been piloted in Jiading
 
-![img](./pic_source/clip_image003.jpg)
+Hai Anjun recently found in Jiading New Town that on the bus-only lane on the Shanghai-Yi Highway, there is a line of words side by side with the "bus-only lane": "Multi-occupant lane."
 
-与此同时，沪宜公路公交专用车道正上方的告示牌显示，7:00-10:00与16:00-19:00这两个高峰时间段，可以在公交专用车道上通行的车辆，除了公交车外，乘员数量两人及两人以上的车辆均可以通行。
+<img src="E:\学习备份\intelligent-vehicle\clip_image003.jpg" alt="img" style="zoom:50%;" />
 
-智慧车列9:50-10:50与15:00-16:00利用多乘员车道在沪宜公路开展测试运行，测试完成后，将调整运行时间为市民提供出行服务。智慧车列交通系统由中国工程院总策划，同济大学、清华大学、湖南大学等高校科研力量与高科技企业协同创新，德鑫智慧科技（上海）有限公司进行产业化开发和推广应用。
+At the same time, the sign directly above the bus lane of Huyi Highway shows that during the two peak periods of 7:00-10:00 and 16:00-19:00, vehicles that can pass on the bus lane, in addition to buses, vehicles with two or more occupants can pass.
 
-# 用户操作方式
+The smart train will be tested on the Shanghai-Yi Highway from 9:50-10:50 and 15:00-16:00 using multi-occupant lanes. After the test is completed, the operating time will be adjusted to provide travel services for the public. The smart train transportation system is planned by the Chinese Academy of Engineering, with collaborative innovation by scientific research forces from Tongji University, Tsinghua University, Hunan University and High Tech, and industrial development and application by Dexin Smart Technology (Shanghai) Co., Ltd.
 
-（1）微信公众号/小程序搜索“智慧车列”
+# User operation mode
 
-![img](./pic_source/clip_image005.png)
+(1) WeChat official account/Mini Program search "smart car train"
 
-（2）点击预约出行，或打开智慧车列小程序，选择您所在的城市
+<img src="E:\学习备份\intelligent-vehicle\clip_image005.png" alt="img" style="zoom:50%;" />
 
-![img](./pic_source/clip_image007.png)
+(2) Click to book a trip, or open the Smart Train Mini Program and select your city
 
-智慧车列乘车界面展示：
+<img src="E:\学习备份\intelligent-vehicle\clip_image007.png" alt="img" style="zoom:50%;" />
 
-![img](./pic_source/clip_image009.png)
+Smart train ride interface display:
 
-（3）点击预约，选择出发站点和结束站点，并选择对应乘车时间：
+<img src="E:\学习备份\intelligent-vehicle\clip_image009.png" alt="img" style="zoom:50%;" />
 
-![img](./pic_source/clip_image011.png)
+(3) Click Reservation, select the departure site and the end site, and select the corresponding ride time:
+
+<img src="E:\学习备份\intelligent-vehicle\clip_image011.png" alt="img" style="zoom:50%;" />
 
  
 
-![img](./pic_source/clip_image013.png)
+<img src="E:\学习备份\intelligent-vehicle\clip_image013.png" alt="img" style="zoom:50%;" />
 
-（4）预约成功之后，将会生成您的对应订单，根据订单信息即可体验本产品
+(4) After the reservation is successful, your corresponding order will be generated, and you can experience this product according to the order information
 
-![img](./pic_source/clip_image015.png)
+<img src="E:\学习备份\intelligent-vehicle\clip_image015.png" alt="img" style="zoom:50%;" />
 
-（5）在出行当中，即可查看已经确定的订单：
+(5) During the trip, you can check the confirmed order:
 
-![img](./pic_source/clip_image017.png)
+<img src="E:\学习备份\intelligent-vehicle\clip_image017.png" alt="img" style="zoom:50%;" />
 
-# 联系平台
+# Contact the platform
 
-**分享二维码——**
+**Share QR code -**
 
-![img](./pic_source/clip_image018.png)
+![img](E:\学习备份\intelligent-vehicle\clip_image018.png)
 
-**微信号——gh_8e300cd53581**
+**Micro Signal - gh_8e300cd53581 **
 
-功能介绍礼遇生活、享受美好出行：分享行业资讯，倡导集约化、绿色低碳出行理念；智慧城市出行公共交通系统基于智慧车列交通系统骨干建设，拓展网络覆盖整个城市出行需求区域，为市民提供安全、舒适、高效、环保的出行服务，助力解决城市交通拥堵，开创城市美好出行。
+Function Introduction Courtesy life, enjoy good travel: share industry information, advocate intensive, green and low-carbon travel concept; smart city travel public transportation system based on the backbone construction of smart train transportation system, expand the network to cover the entire urban travel demand area, provide citizens with safe, comfortable, efficient and environmentally friendly travel services, help solve urban traffic congestion, create a better city travel.
 
  
