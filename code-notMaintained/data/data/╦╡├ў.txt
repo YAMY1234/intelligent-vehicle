@@ -1,0 +1,4 @@
+1.  ivs_app_platform_info（20210415更新）.sql ： 站点信息是2021.04.15号发出的，此文件无变化，可不用重新导入
+2. ivs_app_user_info20210421.sql：司机信息表
+3. ivs_app_car_info20210421.sql ： 车辆信息表，注意c_status（车辆状态(0=不可用,1=可用)），为1的才是有效数据，调度系统使用时注意过滤
+4.ivs_app_city_info20210421.sql ： 城市信息
